@@ -25,7 +25,7 @@ end
 scheduler = Rufus::Scheduler.new
 
 ENV['TZ'] = 'Europe/Berlin'
-scheduler.cron '40 20 * * *' do
+scheduler.cron '10 21 * * *' do
   messages.each do |text|
   Bot.deliver({
                   recipient:

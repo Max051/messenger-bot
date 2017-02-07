@@ -12,6 +12,3 @@ Rails.application.load_tasks
 task :update do
   send_time
 end
-task :sad  do
-  puts ENV["ACCESS_TOKEN"]
-end

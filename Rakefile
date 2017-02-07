@@ -19,3 +19,4 @@ task :update do
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
 end
+end

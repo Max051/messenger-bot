@@ -29,7 +29,7 @@ def send_time
   @messages.each do |text|
   Bot.deliver({
                   recipient:
-                      {"id"=>ENV["MY_ID"]},
+                      {"id"=>"1359441697464248"},
                   message: {
                       text: text
                   }

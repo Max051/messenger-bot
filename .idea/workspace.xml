@@ -45,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/Rakefile">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="54">
-              <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+              <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -541,7 +541,7 @@
       <workItem from="1485781115736" duration="2982000" />
       <workItem from="1486312110788" duration="3688000" />
       <workItem from="1486319414002" duration="9984000" />
-      <workItem from="1486496744585" duration="5272000" />
+      <workItem from="1486496744585" duration="5427000" />
     </task>
     <servers />
   </component>
@@ -554,7 +554,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="35963000" />
+    <option name="totallyTimeSpent" value="36118000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -778,7 +778,7 @@
     <entry file="file://$PROJECT_DIR$/Rakefile">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
-          <caret line="3" column="9" selection-start-line="3" selection-start-column="9" selection-end-line="3" selection-end-column="9" />
+          <caret line="3" column="1" selection-start-line="3" selection-start-column="1" selection-end-line="3" selection-end-column="1" />
           <folding />
         </state>
       </provider>

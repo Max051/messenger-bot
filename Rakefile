@@ -10,5 +10,12 @@ Rails.application.load_tasks
 
 
 task :update do
-  send_time
+  @messages.each do |text|
+    Bot.deliver({
+                    recipient:
+                        {"id"=>"1359441697464248"},
+                    message: {
+                        text: text
+                    }
+                }, access_token: ENV["ACCESS_TOKEN"])
 end

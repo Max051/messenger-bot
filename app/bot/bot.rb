@@ -60,13 +60,14 @@ end
 
 
 Bot.on :message do |message|
+  message.each do |m|
   Bot.deliver({
                   recipient: message.sender,
                   message: {
-                      text: message
+                      text: m
                   }
               }, access_token: ENV["ACCESS_TOKEN"])
-
+end
   if message.text == "Get Started"
 
     @user = User.new(:facebook_id => message.sender)

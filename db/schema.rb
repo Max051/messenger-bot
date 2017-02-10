@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 20170210150713) do
 
   create_table "users", force: :cascade do |t|
-    t.integer  "facebook_id"
+    t.string   "facebook_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
   end

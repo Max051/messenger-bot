@@ -62,17 +62,10 @@ end
 
 
 Bot.on :message do |message|
-  Bot.deliver({
-                  recipient: message.sender,
-                  message: {
-                      text: 'działaśz'
-                  }
-              }, access_token: ENV["ACCESS_TOKEN"])
-
 
   if message.text == "Get Started"
 
-    @user = User.new(:facebook_id => message.sender["id"])
+    @user = User.new(:facebook_id => message.sender["id"].to_i)
 
       if @user.save
         @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')

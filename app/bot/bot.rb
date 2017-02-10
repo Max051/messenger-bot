@@ -60,8 +60,15 @@ end
 
 
 Bot.on :message do |message|
-
+  Bot.deliver({
+                  recipient: message.sender,
+                  message: {
+                      text: message
+                  }
+              }, access_token: ENV["ACCESS_TOKEN"])
+end
   if message.text == "Get Started"
+
     @user = User.new(:facebook_id => message.sender)
 
       if @user.save

@@ -66,7 +66,7 @@ Bot.on :message do |message|
                       text: message.sender["id"]
                   }
               }, access_token: ENV["ACCESS_TOKEN"])
-end
+
 
   if message.text == "Get Started"
 

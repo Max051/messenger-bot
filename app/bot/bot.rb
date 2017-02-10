@@ -21,11 +21,6 @@ page3.each do |a|
   end
 end
 
-#scheduler = Rufus::Scheduler.new
-
-#ENV['TZ'] = 'Europe/Berlin'
-#scheduler.cron '12 22 * * *' do
-
 
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',
@@ -35,31 +30,23 @@ Facebook::Messenger::Thread.set({
                                             payload: 'Get Started'
                                         }
                                     ]
-                                }, access_token: ENV['ACCESS_TOKEN'])
-
+                                }, access_token: 'EAAIUZBpo0lB8BAIjBIotEdw0j4ikZB7S5To4K27MRVnZC7hNGPy3ZBvGwEHQh8v0fWH2eZA6FvTUCLSxzhmhHFga5FudUKZBntO7LKrNQR8KspdS169SvqteaLtMfTeu2rXGHWyEJkYOXjEqyDXMesQ8XMyIxpVTr3KyNIFNs3RwZDZD')
 
 
 def send_time
-  @messages.each do |text|
-  Bot.deliver({
-                  recipient:
-                      {"id"=>"1359441697464248"},
-                  message: {
-                      text: text
-                  }
-              }, access_token: ENV["ACCESS_TOKEN"])
-  end
-end
+  @messages.unshift("I've got some courses for you")
+  @messages.unshift("Hi")
+  @messages.push("That's all for now I will send you new courses tommorow")
+  @messages.push("See you soon")
 
+  @users = User.all
 
-Bot.on :message do |message|
+  @users.each do  |user|
 
-  if message.text == "Get Started"
-    @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
-    @messages.push("That's all for now I will send you new courses at 20:30 UTC")
     @messages.each do |text|
       Bot.deliver({
-                      recipient: message.sender,
+                      recipient:
+                          {"id"=>user.facebook_id},
                       message: {
                           text: text
                       }
@@ -67,8 +54,53 @@ Bot.on :message do |message|
     end
 
   end
+
+
 end
 
+
+Bot.on :message do |message|
+
+  if message.text == "Get Started"
+    @user = User.new(:facebook_id => message.sender)
+
+      if @user.save
+        @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
+        @messages.push("That's all for now I will send you new courses at 20:30 UTC")
+        @messages.push("If you don't want anymore messages send 'unsubscribe''")
+        @messages.each do |text|
+          Bot.deliver({
+                          recipient: message.sender,
+                          message: {
+                              text: text
+                          }
+                      }, access_token: ENV["ACCESS_TOKEN"])
+        end
+      else
+        Bot.deliver({
+                        recipient: message.sender,
+                        message: {
+                            text: 'You already subscribed or something went wrong'
+                        }
+                    }, access_token: ENV["ACCESS_TOKEN"])
+        end
+
+  end
+  if message.text.downcase == 'unsubscribe'
+    @user = User.find_facebook_user(message.sender)
+    if @user
+    @user.destroy(@user.ids)
+    else
+
+      Bot.deliver({
+                      recipient: message.sender,
+                      message: {
+                          text: 'You are not  subscribed or something went wrong'
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
+  end
+end
+  end
 #  messages.each do |text|
 #  Bot.deliver({
 #                  recipient: message.sender,

@@ -8,9 +8,6 @@
   <component name="ChangeListManager">
     <list default="true" id="c246f9e7-0a8c-4b09-91d8-b31df50e3754" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/bot/bot.rb" afterPath="$PROJECT_DIR$/app/bot/bot.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/migrate/20170210150713_create_users.rb" afterPath="$PROJECT_DIR$/db/migrate/20170210150713_create_users.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db/schema.rb" afterPath="$PROJECT_DIR$/db/schema.rb" />
     </list>
     <ignored path="messanger_bot.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -618,7 +615,7 @@
       <workItem from="1486312110788" duration="3688000" />
       <workItem from="1486319414002" duration="9984000" />
       <workItem from="1486496744585" duration="6479000" />
-      <workItem from="1486736295676" duration="9217000" />
+      <workItem from="1486736295676" duration="10207000" />
     </task>
     <servers />
   </component>
@@ -631,7 +628,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="46387000" />
+    <option name="totallyTimeSpent" value="47377000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">

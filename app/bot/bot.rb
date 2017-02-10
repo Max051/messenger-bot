@@ -62,7 +62,7 @@ Bot.on :message do |message|
                         text: 'Welcome to my Bot here are latest free Udemy Courses'
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
-
+    send_courses
 
 
   end

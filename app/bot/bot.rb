@@ -2,6 +2,10 @@ require 'rufus-scheduler'
 require 'nokogiri'
 require 'open-uri'
 require 'facebook/messenger'
+require '/home/kacper/worksapce/massege_bot/messanger_bot/app/models/application_record.rb'
+require '/home/kacper/worksapce/massege_bot/messanger_bot/app/models/user.rb'
+
+require 'active_record'
 include Facebook::Messenger
 
 
@@ -33,6 +37,7 @@ Facebook::Messenger::Thread.set({
                                 }, access_token: 'EAAIUZBpo0lB8BAIjBIotEdw0j4ikZB7S5To4K27MRVnZC7hNGPy3ZBvGwEHQh8v0fWH2eZA6FvTUCLSxzhmhHFga5FudUKZBntO7LKrNQR8KspdS169SvqteaLtMfTeu2rXGHWyEJkYOXjEqyDXMesQ8XMyIxpVTr3KyNIFNs3RwZDZD')
 
 
+
 def send_time
   @messages.unshift("I've got some courses for you")
   @messages.unshift("Hi")
@@ -57,7 +62,11 @@ def send_time
 
 
 end
-
+def timer
+if Time.now.hour == 20 && Time.now.min == 22
+  send_time
+end
+end
 
 Bot.on :message do |message|
 
@@ -88,9 +97,15 @@ Bot.on :message do |message|
 
   end
   if message.text.downcase == 'unsubscribe'
-    @user = User.find_facebook_user(message.sender["id"].to_i)
-    if @user
+    @user = User.find_facebook_user(message.sender["id"])
+    if !@user.empty?
     @user.destroy(@user.ids)
+    Bot.deliver({
+                    recipient: message.sender,
+                    message: {
+                        text: "I won't send you more messages"
+                    }
+                }, access_token: ENV["ACCESS_TOKEN"])
     else
 
       Bot.deliver({

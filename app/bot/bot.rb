@@ -25,6 +25,20 @@ end
 
 #ENV['TZ'] = 'Europe/Berlin'
 #scheduler.cron '12 22 * * *' do
+
+
+Facebook::Messenger::Thread.set({
+                                    setting_type: 'call_to_actions',
+                                    thread_state: 'new_thread',
+                                    call_to_actions: [
+                                        {
+                                            payload: 'Get Started'
+                                        }
+                                    ]
+                                }, access_token: ENV['ACCESS_TOKEN'])
+
+
+
 def send_time
   @messages.each do |text|
   Bot.deliver({

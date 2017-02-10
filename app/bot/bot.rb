@@ -50,16 +50,36 @@ def send_time
               }, access_token: ENV["ACCESS_TOKEN"])
   end
 end
-#end
+
 
 Bot.on :message do |message|
 
-  messages.each do |text|
-  Bot.deliver({
-                  recipient: message.sender,
-                  message: {
-                      text: text
-                  }
-              }, access_token: ENV["ACCESS_TOKEN"])
+  if message.text == "Get Started"
+
+    Bot.deliver({
+                    recipient: message.sender,
+                    message: {
+                        text: 'Welcome to my Bot here are latest free Udemy Courses'
+                    }
+                }, access_token: ENV["ACCESS_TOKEN"])
+    messages.each do |text|
+      Bot.deliver({
+                      recipient: message.sender,
+                      message: {
+                          text: text
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
     end
+
+  end
 end
+
+#  messages.each do |text|
+#  Bot.deliver({
+#                  recipient: message.sender,
+#                  message: {
+#                      text: text
+#                  }
+#              }, access_token: ENV["ACCESS_TOKEN"])
+#    end
+#end

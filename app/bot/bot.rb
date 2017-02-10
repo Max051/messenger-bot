@@ -62,6 +62,13 @@ end
 
 
 Bot.on :message do |message|
+  Bot.deliver({
+                  recipient: message.sender,
+                  message: {
+                      text: 'działaśz'
+                  }
+              }, access_token: ENV["ACCESS_TOKEN"])
+
 
   if message.text == "Get Started"
 

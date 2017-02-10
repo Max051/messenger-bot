@@ -8,7 +8,7 @@ require File.expand_path('../app/models/user.rb','user.rb')
 require File.expand_path('../config/application', __FILE__)
 require File.expand_path('../config/application.rb','application.rb' )
 require File.expand_path('../config/boot.rb','application.rb')
-
+require 'active_record'
 
 Rails.application.load_tasks
 

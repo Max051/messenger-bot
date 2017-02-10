@@ -62,18 +62,21 @@ Bot.on :message do |message|
                         text: 'Welcome to my Bot here are latest free Udemy Courses'
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
-    messages.each do |text|
-      Bot.deliver({
-                      recipient: message.sender,
-                      message: {
-                          text: text
-                      }
-                  }, access_token: ENV["ACCESS_TOKEN"])
-    end
+
+
 
   end
 end
-
+def send_courses
+messages.each do |text|
+  Bot.deliver({
+                  recipient: message.sender,
+                  message: {
+                      text: text
+                  }
+              }, access_token: ENV["ACCESS_TOKEN"])
+end
+  end
 #  messages.each do |text|
 #  Bot.deliver({
 #                  recipient: message.sender,

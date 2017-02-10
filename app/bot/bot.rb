@@ -55,14 +55,8 @@ end
 Bot.on :message do |message|
 
   if message.text == "Get Started"
-
-    Bot.deliver({
-                    recipient: message.sender,
-                    message: {
-                        text: 'Welcome to my Bot here are latest free Udemy Courses'
-                    }
-                }, access_token: ENV["ACCESS_TOKEN"])
-
+    @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
+    @messages.push("That's all for now I will send you new courses at 20:30 UTC")
     @messages.each do |text|
       Bot.deliver({
                       recipient: message.sender,

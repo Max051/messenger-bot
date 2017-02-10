@@ -60,17 +60,9 @@ end
 
 
 Bot.on :message do |message|
-  message.each do |m|
-  Bot.deliver({
-                  recipient: message.sender,
-                  message: {
-                      text: m
-                  }
-              }, access_token: ENV["ACCESS_TOKEN"])
-end
   if message.text == "Get Started"
 
-    @user = User.new(:facebook_id => message.sender)
+    @user = User.new(:facebook_id => message.sender["id"])
 
       if @user.save
         @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
@@ -95,7 +87,7 @@ end
 
   end
   if message.text.downcase == 'unsubscribe'
-    @user = User.find_facebook_user(message.sender)
+    @user = User.find_facebook_user(message.sender["id"])
     if @user
     @user.destroy(@user.ids)
     else

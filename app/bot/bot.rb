@@ -2,10 +2,7 @@ require 'rufus-scheduler'
 require 'nokogiri'
 require 'open-uri'
 require 'facebook/messenger'
-require '/home/kacper/worksapce/massege_bot/messanger_bot/app/models/application_record.rb'
-require '/home/kacper/worksapce/massege_bot/messanger_bot/app/models/user.rb'
 
-require 'active_record'
 include Facebook::Messenger
 
 
@@ -62,11 +59,7 @@ def send_time
 
 
 end
-def timer
-if Time.now.hour == 20 && Time.now.min == 22
-  send_time
-end
-end
+
 
 Bot.on :message do |message|
 

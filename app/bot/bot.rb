@@ -2,7 +2,7 @@ require 'rufus-scheduler'
 require 'nokogiri'
 require 'open-uri'
 require 'facebook/messenger'
-
+require 'rufus-scheduler'
 include Facebook::Messenger
 
 
@@ -22,6 +22,7 @@ page3.each do |a|
   end
 end
 
+scheduler = Rufus::Scheduler.new
 
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',
@@ -60,14 +61,17 @@ def send_time
 
 end
 
+scheduler.cron '30 21 * * *' do
+  send_time
+end
 
 Bot.on :message do |message|
 
   if message.text == "Get Started"
 
-    @user = User.new(:facebook_id => message.sender["id"].to_s)
+    @user = User.create(:facebook_id => message.sender["id"])
 
-      if @user.save
+      if @user.valid?
         @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
         @messages.push("That's all for now I will send you new courses at 20:30 UTC")
         @messages.push("If you don't want anymore messages send 'unsubscribe''")

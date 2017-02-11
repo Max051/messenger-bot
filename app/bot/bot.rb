@@ -73,9 +73,9 @@ Bot.on :message do |message|
 
   #if message.text == "Get Started"
 
-    @user = User.create(:id => 100,:facebook_id => '2')
+    # @user = User.create(:id => 100,:facebook_id => '2')
 
-    if @user.valid?
+   # if @user.valid?
       @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
       @messages.push("That's all for now I will send you new courses at 20:30 UTC")
       @messages.push("If you don't want anymore messages send 'unsubscribe''")
@@ -87,13 +87,13 @@ Bot.on :message do |message|
                         }
                     }, access_token: ENV["ACCESS_TOKEN"])
       end
-    else
-      Bot.deliver({
-                      recipient: message.sender,
-                      message: {
-                          text: 'You already subscribed or something went wrong'
-                      }
-                  }, access_token: ENV["ACCESS_TOKEN"])
+   # else
+   #   Bot.deliver({
+   #                   recipient: message.sender,
+    #                  message: {
+   #                       text: 'You already subscribed or something went wrong'
+     #                 }
+      #            }, access_token: ENV["ACCESS_TOKEN"])
     end
 
 =begin

@@ -100,7 +100,7 @@ Bot.on :message do |message|
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
-
+end
 
   if message.text.downcase == 'unsubscribe'
     @user = User.find_facebook_user(message.sender["id"])
@@ -123,6 +123,6 @@ Bot.on :message do |message|
     end
 end
   end
-end
+
 
 

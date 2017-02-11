@@ -3,7 +3,7 @@ require 'nokogiri'
 require 'open-uri'
 require 'facebook/messenger'
 require 'rufus-scheduler'
-
+require File.expand_path('../app/models/user.rb','user.rb')
 include Facebook::Messenger
 
 
@@ -35,9 +35,6 @@ Facebook::Messenger::Thread.set({
                                     ]
                                 }, access_token: 'EAAIUZBpo0lB8BAIjBIotEdw0j4ikZB7S5To4K27MRVnZC7hNGPy3ZBvGwEHQh8v0fWH2eZA6FvTUCLSxzhmhHFga5FudUKZBntO7LKrNQR8KspdS169SvqteaLtMfTeu2rXGHWyEJkYOXjEqyDXMesQ8XMyIxpVTr3KyNIFNs3RwZDZD' )
 
-def create
-  @user = User.create()
-end
 
 
 def send_time
@@ -78,11 +75,11 @@ def send_my
               }, access_token: ENV["ACCESS_TOKEN"])
     end
 end
-=begin
+
 Bot.on :message do |message|
   if message.text == "Get Started"
 
-    @user = User.create()
+    @user = User.create(:facebook_id => message.sender["id"])
 
     if @user.valid?
       @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
@@ -128,5 +125,5 @@ end
 end
   end
 
-=end
+
 

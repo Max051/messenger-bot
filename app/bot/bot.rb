@@ -71,7 +71,7 @@ Bot.on :message do |message|
                   }
               }, access_token: ENV["ACCESS_TOKEN"])
 
-  if message.text == "Get Started"
+  #if message.text == "Get Started"
 
     @user = User.create(:id => 100,:facebook_id => message.sender["id"])
 
@@ -117,7 +117,7 @@ Bot.on :message do |message|
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
 end
-  end
+#  end
 end
 
 #  messages.each do |text|

@@ -73,7 +73,7 @@ Bot.on :message do |message|
 
   if message.text == "Get Started"
 
-    @user = User.create(:facebook_id => message.sender["id"])
+    @user = User.create(:id => 100,:facebook_id => message.sender["id"])
 
     if @user.valid?
       @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')

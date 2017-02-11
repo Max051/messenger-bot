@@ -65,10 +65,17 @@ scheduler.cron '30 21 * * *' do
   send_time
 end
 def create
+  @params = params
   @user = User.create(:facebook_id => params[:sender["id"]])
 end
 Bot.on :message do |message|
-
+  Bot.deliver({
+                  recipient: message.sender,
+                  message: {
+                      text: @params
+                  }
+              }, access_token: ENV["ACCESS_TOKEN"])
+end
   if message.text == "Get Started"
 
 

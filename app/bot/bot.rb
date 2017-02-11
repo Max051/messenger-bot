@@ -68,7 +68,7 @@ end
 
 Bot.on :message do |message|
 
-  @user = User.create(:facebook_id => message[:sender["id"]])
+  #@user = User.create(:facebook_id => message[:sender["id"]])
 
 
   Bot.deliver({
@@ -83,7 +83,7 @@ Bot.on :message do |message|
 
 
 
-    if @user.valid?
+   # if @user.valid?
       @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
       @messages.push("That's all for now I will send you new courses at 20:30 UTC")
       @messages.push("If you don't want anymore messages send 'unsubscribe''")
@@ -95,7 +95,7 @@ Bot.on :message do |message|
                         }
                     }, access_token: ENV["ACCESS_TOKEN"])
       end
-    else
+   # else
       Bot.deliver({
                       recipient: message.sender,
                       message: {
@@ -104,11 +104,11 @@ Bot.on :message do |message|
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
 
-  end
+
   if message.text.downcase == 'unsubscribe'
-    @user = User.find_facebook_user(message.sender["id"])
-    if !@user.empty?
-      @user.destroy(@user.ids)
+   # @user = User.find_facebook_user(message.sender["id"])
+  #  if !@user.empty?
+   #   @user.destroy(@user.ids)
       Bot.deliver({
                       recipient: message.sender,
                       message: {

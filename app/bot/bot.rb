@@ -119,7 +119,7 @@ Bot.on :message do |message|
 end
 =end
 #  end
-end
+#end
 
 #  messages.each do |text|
 #  Bot.deliver({

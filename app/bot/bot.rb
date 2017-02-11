@@ -65,13 +65,14 @@ scheduler.cron '30 21 * * *' do
   send_time
 end
 def create
+  puts 'OK'
 Bot.on :message do |message|
-
+puts 'LOL'
   if message.text == "Get Started"
 
     @user = User.create(:facebook_id => message.sender["id"])
 
-      if @user.valid?
+      if @user.save
         @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
         @messages.push("That's all for now I will send you new courses at 20:30 UTC")
         @messages.push("If you don't want anymore messages send 'unsubscribe''")
@@ -112,8 +113,7 @@ Bot.on :message do |message|
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
   end
-  end
-
+end
 end
   end
 #  messages.each do |text|

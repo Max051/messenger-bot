@@ -7,7 +7,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c246f9e7-0a8c-4b09-91d8-b31df50e3754" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/bot/bot.rb" afterPath="$PROJECT_DIR$/app/bot/bot.rb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="messanger_bot.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,8 +43,8 @@
       <file leaf-file-name="bot.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/bot/bot.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="69" column="48" selection-start-line="69" selection-start-column="48" selection-end-line="69" selection-end-column="48" />
+            <state relative-caret-position="378">
+              <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -621,7 +621,7 @@
       <workItem from="1486736295676" duration="10400000" />
       <workItem from="1486748032200" duration="5916000" />
       <workItem from="1486754219579" duration="2483000" />
-      <workItem from="1486801126194" duration="8486000" />
+      <workItem from="1486801126194" duration="8568000" />
     </task>
     <servers />
   </component>
@@ -634,7 +634,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64455000" />
+    <option name="totallyTimeSpent" value="64537000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1013,8 +1013,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/bot/bot.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="69" column="48" selection-start-line="69" selection-start-column="48" selection-end-line="69" selection-end-column="48" />
+        <state relative-caret-position="378">
+          <caret line="72" column="0" selection-start-line="72" selection-start-column="0" selection-end-line="72" selection-end-column="0" />
           <folding />
         </state>
       </provider>

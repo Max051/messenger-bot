@@ -64,7 +64,7 @@ end
 scheduler.cron '30 21 * * *' do
   send_time
 end
-
+def create
 Bot.on :message do |message|
 
   if message.text == "Get Started"
@@ -112,6 +112,8 @@ Bot.on :message do |message|
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
   end
+  end
+
 end
   end
 #  messages.each do |text|

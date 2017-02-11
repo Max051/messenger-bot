@@ -35,6 +35,9 @@ Facebook::Messenger::Thread.set({
                                     ]
                                 }, access_token: 'EAAIUZBpo0lB8BAIjBIotEdw0j4ikZB7S5To4K27MRVnZC7hNGPy3ZBvGwEHQh8v0fWH2eZA6FvTUCLSxzhmhHFga5FudUKZBntO7LKrNQR8KspdS169SvqteaLtMfTeu2rXGHWyEJkYOXjEqyDXMesQ8XMyIxpVTr3KyNIFNs3RwZDZD' )
 
+def create
+  @user = User.create()
+end
 
 
 def send_time

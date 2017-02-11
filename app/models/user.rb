@@ -1,3 +1,4 @@
+
 class User < ApplicationRecord
 # validates :facebook_id, presence:true, uniqueness: true
 

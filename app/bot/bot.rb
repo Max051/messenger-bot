@@ -6,7 +6,7 @@ require 'rufus-scheduler'
 include Facebook::Messenger
 
 
-Facebook::Messenger::Subscriptions.subscribe(access_token: 'EAAIUZBpo0lB8BAIjBIotEdw0j4ikZB7S5To4K27MRVnZC7hNGPy3ZBvGwEHQh8v0fWH2eZA6FvTUCLSxzhmhHFga5FudUKZBntO7LKrNQR8KspdS169SvqteaLtMfTeu2rXGHWyEJkYOXjEqyDXMesQ8XMyIxpVTr3KyNIFNs3RwZDZD')
+Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
 
 
 base_url = 'http://www.wykop.pl/tag/kursyudemy/'
@@ -32,7 +32,7 @@ Facebook::Messenger::Thread.set({
                                             payload: 'Get Started'
                                         }
                                     ]
-                                }, access_token: 'EAAIUZBpo0lB8BAIjBIotEdw0j4ikZB7S5To4K27MRVnZC7hNGPy3ZBvGwEHQh8v0fWH2eZA6FvTUCLSxzhmhHFga5FudUKZBntO7LKrNQR8KspdS169SvqteaLtMfTeu2rXGHWyEJkYOXjEqyDXMesQ8XMyIxpVTr3KyNIFNs3RwZDZD' )
+                                }, access_token: ENV["ACCESS_TOKEN"] )
 
 
 
@@ -71,11 +71,11 @@ Bot.on :message do |message|
                   }
               }, access_token: ENV["ACCESS_TOKEN"])
 
-  #if message.text == "Get Started"
+  if message.text == "Get Started"
 
-    # @user = User.create(:id => 100,:facebook_id => '2')
+    @user = User.create(:facebook_id => message.sender["id"])
 
-   # if @user.valid?
+    if @user.valid?
       @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
       @messages.push("That's all for now I will send you new courses at 20:30 UTC")
       @messages.push("If you don't want anymore messages send 'unsubscribe''")
@@ -87,16 +87,16 @@ Bot.on :message do |message|
                         }
                     }, access_token: ENV["ACCESS_TOKEN"])
       end
-   # else
-   #   Bot.deliver({
-   #                   recipient: message.sender,
-    #                  message: {
-   #                       text: 'You already subscribed or something went wrong'
-     #                 }
-      #            }, access_token: ENV["ACCESS_TOKEN"])
+    else
+      Bot.deliver({
+                      recipient: message.sender,
+                      message: {
+                          text: 'You already subscribed or something went wrong'
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
     end
 
-=begin
+
   if message.text.downcase == 'unsubscribe'
     @user = User.find_facebook_user(message.sender["id"])
     if !@user.empty?
@@ -117,16 +117,7 @@ Bot.on :message do |message|
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
 end
-=end
-#  end
-#end
+  end
+end
 
-#  messages.each do |text|
-#  Bot.deliver({
-#                  recipient: message.sender,
-#                  message: {
-#                      text: text
-#                  }
-#              }, access_token: ENV["ACCESS_TOKEN"])
-#    end
-#end
+

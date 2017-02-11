@@ -22,7 +22,7 @@ page3.each do |a|
   end
 end
 
-scheduler = Rufus::Scheduler.new
+
 
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',
@@ -45,35 +45,19 @@ def send_time
   @users = User.all
 
   @users.each do  |user|
-
     @messages.each do |text|
       Bot.deliver({
                       recipient:
                           {"id"=>user.facebook_id},
                       message: {
-                          text: text
+                          text: 'text'
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
   end
 end
 
-scheduler.cron '30 20 * * *' do
-  send_time
-end
-def send_my
-  @messages.unshift("Hi")
-  @messages.push("That's all for now I will send you new courses tommorow")
-  @messages.each do |text|
-  Bot.deliver({
-                  recipient:
-                      {"id"=>'1359441697464248'},
-                  message: {
-                      text: text
-                  }
-              }, access_token: ENV["ACCESS_TOKEN"])
-    end
-end
+
 
 Bot.on :message do |message|
   if message.text == "Get Started"

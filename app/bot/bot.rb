@@ -3,7 +3,6 @@ require 'nokogiri'
 require 'open-uri'
 require 'facebook/messenger'
 require 'rufus-scheduler'
-require File.expand_path('../app/models/user.rb','user.rb')
 include Facebook::Messenger
 
 

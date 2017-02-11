@@ -6,7 +6,7 @@ require 'rufus-scheduler'
 include Facebook::Messenger
 
 
-Facebook::Messenger::Subscriptions.subscribe(access_token: ENV["ACCESS_TOKEN"])
+Facebook::Messenger::Subscriptions.subscribe(access_token: 'EAAIUZBpo0lB8BAIjBIotEdw0j4ikZB7S5To4K27MRVnZC7hNGPy3ZBvGwEHQh8v0fWH2eZA6FvTUCLSxzhmhHFga5FudUKZBntO7LKrNQR8KspdS169SvqteaLtMfTeu2rXGHWyEJkYOXjEqyDXMesQ8XMyIxpVTr3KyNIFNs3RwZDZD')
 
 
 base_url = 'http://www.wykop.pl/tag/kursyudemy/'
@@ -32,7 +32,7 @@ Facebook::Messenger::Thread.set({
                                             payload: 'Get Started'
                                         }
                                     ]
-                                }, access_token: ENV["ACCESS_TOKEN"] )
+                                }, access_token: 'EAAIUZBpo0lB8BAIjBIotEdw0j4ikZB7S5To4K27MRVnZC7hNGPy3ZBvGwEHQh8v0fWH2eZA6FvTUCLSxzhmhHFga5FudUKZBntO7LKrNQR8KspdS169SvqteaLtMfTeu2rXGHWyEJkYOXjEqyDXMesQ8XMyIxpVTr3KyNIFNs3RwZDZD' )
 
 
 

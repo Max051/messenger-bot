@@ -68,13 +68,13 @@ end
 
 Bot.on :message do |message|
 
-  #@user = User.create(:facebook_id => message[:sender["id"]])
+  #@user = User.create(:facebook_id => message.sender["id"])
 
 
   Bot.deliver({
                   recipient: message.sender,
                   message: {
-                      text: message
+                      text: message.sender["id"]
                   }
               }, access_token: ENV["ACCESS_TOKEN"])
 

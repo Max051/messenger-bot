@@ -125,7 +125,7 @@ Bot.on :message do |message|
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
   end
-end
+
 #  messages.each do |text|
 #  Bot.deliver({
 #                  recipient: message.sender,

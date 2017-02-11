@@ -65,12 +65,14 @@ scheduler.cron '30 21 * * *' do
   send_time
 end
 def create
-  puts 'OK'
+  @user = User.create(:facebook_id => params[:id])
+
+
 Bot.on :message do |message|
-puts 'LOL'
+
   if message.text == "Get Started"
 
-    @user = User.create(:facebook_id => message.sender["id"])
+
 
       if @user.save
         @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')

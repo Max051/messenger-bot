@@ -58,7 +58,7 @@ def send_time
   end
 end
 
-scheduler.cron '16 10 * * *' do
+scheduler.cron '30 20 * * *' do
   send_time
 end
 

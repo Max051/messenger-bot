@@ -78,7 +78,7 @@ def send_my
               }, access_token: ENV["ACCESS_TOKEN"])
     end
 end
-
+=begin
 Bot.on :message do |message|
   if message.text == "Get Started"
 

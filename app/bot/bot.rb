@@ -61,7 +61,19 @@ end
 scheduler.cron '30 20 * * *' do
   send_time
 end
-
+def send_my
+  @messages.unshift("Hi")
+  @messages.push("That's all for now I will send you new courses tommorow")
+  @messages.each do |text|
+  Bot.deliver({
+                  recipient:
+                      {"id"=>'1359441697464248'},
+                  message: {
+                      text: text
+                  }
+              }, access_token: ENV["ACCESS_TOKEN"])
+    end
+end
 
 Bot.on :message do |message|
   if message.text == "Get Started"

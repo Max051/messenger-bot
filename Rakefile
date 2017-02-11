@@ -15,5 +15,5 @@ Rails.application.load_tasks
 
 
 task :update do
-  send_time
+  send_my
 end

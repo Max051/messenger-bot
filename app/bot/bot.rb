@@ -65,7 +65,7 @@ scheduler.cron '30 21 * * *' do
   send_time
 end
 def create
-  @user = User.create(:facebook_id => '12')
+ # @user = User.create(:facebook_id => '12')
 end
 
 Bot.on :message do |message|

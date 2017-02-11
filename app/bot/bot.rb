@@ -74,12 +74,12 @@ Bot.on :message do |message|
   Bot.deliver({
                   recipient: message.sender,
                   message: {
-                      text: 'a'
+                      text: message
                   }
               }, access_token: ENV["ACCESS_TOKEN"])
 
-
-  if message.text == "Get Started"
+=begin
+  #if message.text == "Get Started"
 
 
 
@@ -124,6 +124,7 @@ Bot.on :message do |message|
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
+=end
   end
 
 #  messages.each do |text|

@@ -64,55 +64,57 @@ end
 scheduler.cron '30 21 * * *' do
   send_time
 end
-def create
-  @params = params
-  @user = User.create(:facebook_id => params[:sender["id"]])
-end
+
 
 Bot.on :message do |message|
+
+  @user = User.create(:facebook_id => message[:sender["id"]])
+
+
   Bot.deliver({
                   recipient: message.sender,
                   message: {
-                      text: @params
+                      text: 'a'
                   }
               }, access_token: ENV["ACCESS_TOKEN"])
+
 
   if message.text == "Get Started"
 
 
 
-      if @user.valid?
-        @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
-        @messages.push("That's all for now I will send you new courses at 20:30 UTC")
-        @messages.push("If you don't want anymore messages send 'unsubscribe''")
-        @messages.each do |text|
-          Bot.deliver({
-                          recipient: message.sender,
-                          message: {
-                              text: text
-                          }
-                      }, access_token: ENV["ACCESS_TOKEN"])
-        end
-      else
+    if @user.valid?
+      @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
+      @messages.push("That's all for now I will send you new courses at 20:30 UTC")
+      @messages.push("If you don't want anymore messages send 'unsubscribe''")
+      @messages.each do |text|
         Bot.deliver({
                         recipient: message.sender,
                         message: {
-                            text: 'You already subscribed or something went wrong'
+                            text: text
                         }
                     }, access_token: ENV["ACCESS_TOKEN"])
-        end
+      end
+    else
+      Bot.deliver({
+                      recipient: message.sender,
+                      message: {
+                          text: 'You already subscribed or something went wrong'
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
+    end
 
   end
   if message.text.downcase == 'unsubscribe'
     @user = User.find_facebook_user(message.sender["id"])
     if !@user.empty?
-    @user.destroy(@user.ids)
-    Bot.deliver({
-                    recipient: message.sender,
-                    message: {
-                        text: "I won't send you more messages"
-                    }
-                }, access_token: ENV["ACCESS_TOKEN"])
+      @user.destroy(@user.ids)
+      Bot.deliver({
+                      recipient: message.sender,
+                      message: {
+                          text: "I won't send you more messages"
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
     else
 
       Bot.deliver({
@@ -121,10 +123,9 @@ Bot.on :message do |message|
                           text: 'You are not  subscribed or something went wrong'
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
-  end
+    end
   end
 end
-
 #  messages.each do |text|
 #  Bot.deliver({
 #                  recipient: message.sender,

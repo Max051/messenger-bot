@@ -65,7 +65,7 @@ scheduler.cron '30 21 * * *' do
   send_time
 end
 def create
-  @user = User.create(:facebook_id => params[:id])
+  @user = User.create(:facebook_id => 12)
 
 
 Bot.on :message do |message|
@@ -74,7 +74,7 @@ Bot.on :message do |message|
 
 
 
-      if @user.save
+      if @user.valid?
         @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
         @messages.push("That's all for now I will send you new courses at 20:30 UTC")
         @messages.push("If you don't want anymore messages send 'unsubscribe''")
@@ -117,7 +117,54 @@ Bot.on :message do |message|
   end
 end
 end
+end
+Bot.on :message do |message|
+
+  if message.text == "Get Started"
+
+    if @user.valid?
+      @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
+      @messages.push("That's all for now I will send you new courses at 20:30 UTC")
+      @messages.push("If you don't want anymore messages send 'unsubscribe''")
+      @messages.each do |text|
+        Bot.deliver({
+                        recipient: message.sender,
+                        message: {
+                            text: text
+                        }
+                    }, access_token: ENV["ACCESS_TOKEN"])
+      end
+    else
+      Bot.deliver({
+                      recipient: message.sender,
+                      message: {
+                          text: 'You already subscribed or something went wrong'
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
+    end
+
   end
+  if message.text.downcase == 'unsubscribe'
+    @user = User.find_facebook_user(message.sender["id"])
+    if !@user.empty?
+      @user.destroy(@user.ids)
+      Bot.deliver({
+                      recipient: message.sender,
+                      message: {
+                          text: "I won't send you more messages"
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
+    else
+
+      Bot.deliver({
+                      recipient: message.sender,
+                      message: {
+                          text: 'You are not  subscribed or something went wrong'
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
+    end
+  end
+end
 #  messages.each do |text|
 #  Bot.deliver({
 #                  recipient: message.sender,

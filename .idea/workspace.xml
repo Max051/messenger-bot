@@ -44,8 +44,8 @@
       <file leaf-file-name="bot.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/bot/bot.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="258">
-              <caret line="69" column="2" selection-start-line="69" selection-start-column="2" selection-end-line="69" selection-end-column="2" />
+            <state relative-caret-position="290">
+              <caret line="67" column="40" selection-start-line="67" selection-start-column="40" selection-end-line="67" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -612,7 +612,7 @@
       <workItem from="1486736295676" duration="10400000" />
       <workItem from="1486748032200" duration="5916000" />
       <workItem from="1486754219579" duration="2483000" />
-      <workItem from="1486801126194" duration="2646000" />
+      <workItem from="1486801126194" duration="2899000" />
     </task>
     <servers />
   </component>
@@ -625,7 +625,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="58615000" />
+    <option name="totallyTimeSpent" value="58868000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1003,8 +1003,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/bot/bot.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="69" column="2" selection-start-line="69" selection-start-column="2" selection-end-line="69" selection-end-column="2" />
+        <state relative-caret-position="290">
+          <caret line="67" column="40" selection-start-line="67" selection-start-column="40" selection-end-line="67" selection-end-column="40" />
           <folding />
         </state>
       </provider>

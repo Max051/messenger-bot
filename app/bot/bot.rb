@@ -50,13 +50,24 @@ def send_time
                       recipient:
                           {"id"=>user.facebook_id},
                       message: {
-                          text: 'text'
+                          text: text
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
   end
 end
-
+def send_my
+  @user = User.first
+    @messages.each do |text|
+      Bot.deliver({
+                      recipient:
+                          {"id"=>@user.facebook_id},
+                      message: {
+                          text: text
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
+    end
+end
 
 
 Bot.on :message do |message|

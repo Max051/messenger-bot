@@ -12,6 +12,9 @@ Rails.application.load_tasks
 
 
 
-task :update do
+task :update_me do
   send_my
+end
+task :update do
+  send_time
 end

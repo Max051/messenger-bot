@@ -75,14 +75,12 @@ Bot.on :postback do |postback|
   postback.sent_at   # => 2016-04-22 21:30:36 +0200
   postback.payload   # => 'EXTERMINATE'
 
-  if postback.payload == 'Get Started'
     Bot.deliver({
                     recipient: { "id" => '1359441697464248' },
                     message: {
                         text: postback.sender
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
-  end
 end
 
 Bot.on :message do |message|

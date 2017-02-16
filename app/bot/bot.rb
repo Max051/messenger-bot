@@ -74,11 +74,13 @@ Bot.on :postback do |postback|
   postback.recipient # => { 'id' => '2015573629214912' }
   postback.sent_at   # => 2016-04-22 21:30:36 +0200
   postback.payload   # => 'EXTERMINATE'
-
+if postback.payload == "Get Started"
+  @user = User.create(:facebook_id => postback.sender["id"])
+end
     Bot.deliver({
-                    recipient: { "id" => '1359441697464248' },
+                    recipient: postback.sender,
                     message: {
-                        text: postback.sender
+                        text: 'Added'
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
 end

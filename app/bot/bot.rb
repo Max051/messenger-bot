@@ -6,7 +6,7 @@ require 'rufus-scheduler'
 include Facebook::Messenger
 
 
-Facebook::Messenger::Subscriptions.subscribe(access_token:  ENV["ACCESS_TOKEN"])
+Facebook::Messenger::Subscriptions.subscribe(access_token:  'EAAIUZBpo0lB8BAIjBIotEdw0j4ikZB7S5To4K27MRVnZC7hNGPy3ZBvGwEHQh8v0fWH2eZA6FvTUCLSxzhmhHFga5FudUKZBntO7LKrNQR8KspdS169SvqteaLtMfTeu2rXGHWyEJkYOXjEqyDXMesQ8XMyIxpVTr3KyNIFNs3RwZDZD')
 
 
 base_url = 'http://www.wykop.pl/tag/kursyudemy/'
@@ -32,7 +32,7 @@ Facebook::Messenger::Thread.set({
                                             payload: 'Get Started'
                                         }
                                     ]
-                                }, access_token:  ENV["ACCESS_TOKEN"] )
+                                }, access_token:  'EAAIUZBpo0lB8BAIjBIotEdw0j4ikZB7S5To4K27MRVnZC7hNGPy3ZBvGwEHQh8v0fWH2eZA6FvTUCLSxzhmhHFga5FudUKZBntO7LKrNQR8KspdS169SvqteaLtMfTeu2rXGHWyEJkYOXjEqyDXMesQ8XMyIxpVTr3KyNIFNs3RwZDZD' )
 
 
 
@@ -61,7 +61,7 @@ def send_my
     @messages.each do |text|
       Bot.deliver({
                       recipient:
-                          {"id"=>@user.facebook_id},
+                          {"id"=>'1359441697464248'},
                       message: {
                           text: text
                       }
@@ -69,6 +69,21 @@ def send_my
     end
 end
 
+Bot.on :postback do |postback|
+  postback.sender    # => { 'id' => '1008372609250235' }
+  postback.recipient # => { 'id' => '2015573629214912' }
+  postback.sent_at   # => 2016-04-22 21:30:36 +0200
+  postback.payload   # => 'EXTERMINATE'
+
+  if postback.payload == 'Get Started'
+    Bot.deliver({
+                    recipient: { "id" => '1359441697464248' },
+                    message: {
+                        text: postback.sender
+                    }
+                }, access_token: ENV["ACCESS_TOKEN"])
+  end
+end
 
 Bot.on :message do |message|
   if message.text == "Get Started"

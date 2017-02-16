@@ -70,21 +70,32 @@ def send_my
 end
 
 Bot.on :postback do |postback|
-  postback.sender    # => { 'id' => '1008372609250235' }
-  postback.recipient # => { 'id' => '2015573629214912' }
-  postback.sent_at   # => 2016-04-22 21:30:36 +0200
-  postback.payload   # => 'EXTERMINATE'
-if postback.payload == "Get Started"
-  @user = User.create(:facebook_id => postback.sender["id"])
-end
-    Bot.deliver({
-                    recipient: postback.sender,
-                    message: {
-                        text: 'Added'
-                    }
-                }, access_token: ENV["ACCESS_TOKEN"])
-end
 
+    if postback.payload == "Get Started"
+
+      @user = User.create(:facebook_id => postback.sender["id"])
+       if @user.valid?
+          @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
+          @messages.push("That's all for now I will send you new courses at 20:30 UTC")
+          @messages.push("If you don't want anymore messages send 'unsubscribe''")
+          @messages.each do |text|
+          Bot.deliver({
+                          recipient: postback.sender,
+                          message: {
+                              text: text
+                          }
+                      }, access_token: ENV["ACCESS_TOKEN"])
+        end
+       else
+        Bot.deliver({
+                        recipient: postback.sender,
+                        message: {
+                            text: 'You already subscribed or something went wrong'
+                        }
+                    }, access_token: ENV["ACCESS_TOKEN"])
+      end
+  end
+end
 Bot.on :message do |message|
   if message.text == "Get Started"
 

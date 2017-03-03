@@ -6,7 +6,7 @@ require 'rufus-scheduler'
 include Facebook::Messenger
 
 
-Facebook::Messenger::Subscriptions.subscribe(access_token:  'EAAIUZBpo0lB8BAIjBIotEdw0j4ikZB7S5To4K27MRVnZC7hNGPy3ZBvGwEHQh8v0fWH2eZA6FvTUCLSxzhmhHFga5FudUKZBntO7LKrNQR8KspdS169SvqteaLtMfTeu2rXGHWyEJkYOXjEqyDXMesQ8XMyIxpVTr3KyNIFNs3RwZDZD')
+Facebook::Messenger::Subscriptions.subscribe(access_token:  'EAAIUZBpo0lB8BAKxnplPebwvs5cSDGWFfHr2LNLBaSYIiJjMIy53q9amIGPzErC80VJv83PlroM25e2evFMio2mZAMchdJkVOBfO94DjaF8uZCJNP8pH8cZBFRxfB7R0Tqx9KJ65SQ2SUcB362kVeFzZAZCtCUWauqjACcXIZAqQQZDZD')
 
 
 base_url = 'http://www.wykop.pl/tag/kursyudemy/'
@@ -32,7 +32,7 @@ Facebook::Messenger::Thread.set({
                                             payload: 'Get Started'
                                         }
                                     ]
-                                }, access_token:  'EAAIUZBpo0lB8BAIjBIotEdw0j4ikZB7S5To4K27MRVnZC7hNGPy3ZBvGwEHQh8v0fWH2eZA6FvTUCLSxzhmhHFga5FudUKZBntO7LKrNQR8KspdS169SvqteaLtMfTeu2rXGHWyEJkYOXjEqyDXMesQ8XMyIxpVTr3KyNIFNs3RwZDZD' )
+                                }, access_token:  'EAAIUZBpo0lB8BAKxnplPebwvs5cSDGWFfHr2LNLBaSYIiJjMIy53q9amIGPzErC80VJv83PlroM25e2evFMio2mZAMchdJkVOBfO94DjaF8uZCJNP8pH8cZBFRxfB7R0Tqx9KJ65SQ2SUcB362kVeFzZAZCtCUWauqjACcXIZAqQQZDZD' )
 
 
 

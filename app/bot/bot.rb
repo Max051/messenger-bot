@@ -149,4 +149,16 @@ end
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
 end
+
+if message.text.downcase == 'help'
+    Bot.deliver({
+                    recipient: message.sender,
+                    message: {
+                        text: "Hi I will send you new courses at 20:30 UTC, If you don't wanna anymore messages just send 'unsubscribe'"
+                    }
+                }, access_token: ENV["ACCESS_TOKEN"])
+
+end
+
+
   end

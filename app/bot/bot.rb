@@ -9,31 +9,26 @@ include Facebook::Messenger
 Facebook::Messenger::Subscriptions.subscribe(access_token:  'EAAIUZBpo0lB8BAKxnplPebwvs5cSDGWFfHr2LNLBaSYIiJjMIy53q9amIGPzErC80VJv83PlroM25e2evFMio2mZAMchdJkVOBfO94DjaF8uZCJNP8pH8cZBFRxfB7R0Tqx9KJ65SQ2SUcB362kVeFzZAZCtCUWauqjACcXIZAqQQZDZD')
 
 
-base_url = 'http://www.wykop.pl/tag/kursyudemy/'
-
-page = Nokogiri::HTML(open(base_url))
-page1 =  page.css('li.entry')[1]
+@base_url = 'http://www.wykop.pl/tag/kursyudemy/'
+def get_messeges(page_with_links)
+page = Nokogiri::HTML(open(@base_url))
+page1 =  page.css('li.entry')[page_with_links]
 page2 =  page1.css('span.text-expanded')
 page3 =  page2.css('a')
 @messages = []
 
-
 page3.each do |a|
   if a.values[0].include? "www.udemy.com"
-    @page_udemy = Nokogiri::HTML(open(a.values[0]))
-
-    @udemy_a = @page_udemy.css('#udemy a')
-
-    @udemy_a.each { |u_a|
-      if u_a.values[0].include? "payment"
-        @direct_link = u_a.values[0]
-      end
-    }
-    #@direct_link =  @page_udemy.css('#udemy > div.one-col-landing > div.main-details.mt10 > div > div > div.col-lg-4.col-md-5 > div > div.row.fxw-md.fdrr-md.db-force-xs.ml0-xs.mr0-xs > div.right-top.col-md-12.col-sm-6.pl0-xs.pr0-xs > div:nth-child(1) > div > div:nth-child(2) > a')
-
-    @messages.push(a.text+ ' ' "www.udemy.com"+@direct_link)
+    @messages.push(a.text + ' ' + a.values[0])
   end
 end
+if(@messages == [])
+  get_messeges(page_with_links += 1)
+end
+end
+
+get_messeges(0)
+
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',
                                     thread_state: 'new_thread',
@@ -50,6 +45,7 @@ def send_time
   @messages.unshift("I've got some courses for you")
   @messages.unshift("Hi")
   @messages.push("That's all for now I will send you new courses tommorow")
+  @messages.push("If you don't want anymore messages send 'unsubscribe''")
   @messages.push("See you soon")
 
   @users = User.all
@@ -154,6 +150,3 @@ end
     end
 end
   end
-
-
-

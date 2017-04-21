@@ -67,7 +67,7 @@ def send_my
     @messages.each do |text|
       Bot.deliver({
                       recipient:
-                          {"id"=>'1359441697464248'},
+                          {"id"=>'100000992779105'},
                       message: {
                           text: text
                       }

@@ -84,10 +84,7 @@ def send_time_over34
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
                 end
-              else
-                @messages = [];
     end
-
 end
 def send_my
   @user = User.first

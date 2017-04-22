@@ -18,3 +18,6 @@ end
 task :update do
   send_time
 end
+task :update_over 34 do
+  send_time_over34
+end

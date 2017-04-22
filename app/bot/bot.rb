@@ -62,6 +62,33 @@ def send_time
     end
   end
 end
+def send_time_over34
+  @messages.unshift("I've got some courses for you")
+  @messages.unshift("Hi")
+  @messages.push("That's all for now I will send you new courses tommorow")
+  @messages.push("If you don't want anymore messages send 'unsubscribe''")
+  @messages.push("See you soon")
+
+
+
+  User.all.each do  |user|
+    if user.id > 33
+
+
+    @messages.each do |text|
+      Bot.deliver({
+                      recipient:
+                          {"id"=>user.facebook_id},
+                      message: {
+                          text: text
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
+                end
+              else
+                @messages = [];
+    end
+  end
+end
 def send_my
   @user = User.first
     @messages.each do |text|

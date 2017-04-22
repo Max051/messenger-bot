@@ -69,10 +69,10 @@ def send_time_over34
   @messages.push("If you don't want anymore messages send 'unsubscribe''")
   @messages.push("See you soon")
 
+@users = User.where(id: [33...1000])
 
+  @users.each do  |user|
 
-  User.all.each do  |user|
-    if user.id > 33
 
 
     @messages.each do |text|
@@ -87,7 +87,7 @@ def send_time_over34
               else
                 @messages = [];
     end
-  end
+
 end
 def send_my
   @user = User.first

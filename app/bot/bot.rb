@@ -52,6 +52,7 @@ def send_time
 
   @users.each do  |user|
     @messages.each do |text|
+      begin
       Bot.deliver({
                       recipient:
                           {"id"=>user.facebook_id},
@@ -59,32 +60,11 @@ def send_time
                           text: text
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
+      rescue => e
+        puts e.inspect
+      end
     end
   end
-end
-def send_time_over34
-  @messages.unshift("I've got some courses for you")
-  @messages.unshift("Hi")
-  @messages.push("That's all for now I will send you new courses tommorow")
-  @messages.push("If you don't want anymore messages send 'unsubscribe''")
-  @messages.push("See you soon")
-
-@users = User.where(id: [33...1000])
-
-  @users.each do  |user|
-
-
-
-    @messages.each do |text|
-      Bot.deliver({
-                      recipient:
-                          {"id"=>user.facebook_id},
-                      message: {
-                          text: text
-                      }
-                  }, access_token: ENV["ACCESS_TOKEN"])
-                end
-    end
 end
 def send_my
   @user = User.first

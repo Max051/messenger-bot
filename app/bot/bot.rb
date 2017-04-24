@@ -22,6 +22,7 @@ page3.each do |a|
     @messages.push(a.text + ' ' + a.values[0])
   end
 end
+@messeges_length = @messages.length+1
 if(@messages == [])
   get_messeges(page_with_links += 1)
 end
@@ -86,8 +87,8 @@ Bot.on :postback do |postback|
       @user = User.create(:facebook_id => postback.sender["id"])
        if @user.valid?
           @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
-          @messages.push("That's all for now I will send you new courses at 20:30 UTC")
-          @messages.push("If you don't want anymore messages send 'unsubscribe''")
+          @messages[@messeges_length] = "If you don't want anymore messages send 'unsubscribe''"
+          @messages[@messages_length+1] = "That's all for now I will send you new courses at 20:30 UTC"
           @messages.each do |text|
           Bot.deliver({
                           recipient: postback.sender,

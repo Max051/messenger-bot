@@ -8,14 +8,14 @@ include Facebook::Messenger
 
 Facebook::Messenger::Subscriptions.subscribe(access_token:  'EAAIUZBpo0lB8BAKxnplPebwvs5cSDGWFfHr2LNLBaSYIiJjMIy53q9amIGPzErC80VJv83PlroM25e2evFMio2mZAMchdJkVOBfO94DjaF8uZCJNP8pH8cZBFRxfB7R0Tqx9KJ65SQ2SUcB362kVeFzZAZCtCUWauqjACcXIZAqQQZDZD')
 
-
+@messages = []
 @base_url = 'http://www.wykop.pl/tag/kursyudemy/'
 def get_messeges(page_with_links)
 page = Nokogiri::HTML(open(@base_url))
 page1 =  page.css('li.entry')[page_with_links]
 page2 =  page1.css('span.text-expanded')
 page3 =  page2.css('a')
-@messages = []
+
 
 page3.each do |a|
   if a.values[0].include? "www.udemy.com"
@@ -85,7 +85,7 @@ end
 Bot.on :postback do |postback|
 
     if postback.payload == "Get Started"
-      
+
       @user = User.create(:facebook_id => postback.sender["id"])
        if @user.valid?
           @messages.each do |text|

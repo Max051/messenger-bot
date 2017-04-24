@@ -22,15 +22,13 @@ page3.each do |a|
     @messages.push(a.text + ' ' + a.values[0])
   end
 end
-@messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
-@messages.push("That's all for now I will send you new courses tommorow")
-@messages.push("If you don't want anymore messages send 'unsubscribe''")
+
 if(@messages == [])
   get_messeges(page_with_links += 1)
 end
 end
 
-get_messeges(0)
+
 
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',
@@ -45,6 +43,8 @@ Facebook::Messenger::Thread.set({
 
 
 def send_time
+  @messages = []
+  get_messeges(0)
   @messages.unshift("I've got some courses for you")
   @messages.unshift("Hi")
   @messages.push("That's all for now I will send you new courses tommorow")
@@ -83,9 +83,13 @@ def send_my
 end
 
 Bot.on :postback do |postback|
+  @messages = []
+  get_messeges(0)
+  @messages.unshift("Hi")
+  @messages.push("That's all for now I will send you new courses tommorow")
+  @messages.push("If you don't want anymore messages send 'unsubscribe''")
 
     if postback.payload == "Get Started"
-
       @user = User.create(:facebook_id => postback.sender["id"])
        if @user.valid?
           @messages.each do |text|
@@ -110,7 +114,8 @@ Bot.on :message do |message|
   if message.text == "Get Started"
 
     @user = User.create(:facebook_id => message.sender["id"])
-
+    @messages = []
+    get_messeges(0)
     if @user.valid?
       @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
       @messages.push("That's all for now I will send you new courses at 20:30 UTC")

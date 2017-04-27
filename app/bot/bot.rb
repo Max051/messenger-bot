@@ -168,6 +168,14 @@ if message.text.downcase == 'help'
                 }, access_token: ENV["ACCESS_TOKEN"])
 
 end
+if message.text.downcase == 'daj mi moje id'
+    Bot.deliver({
+                    recipient: message.sender,
+                    message: {
+                        text: message.sender
+                    }
+                }, access_token: ENV["ACCESS_TOKEN"])
 
+end
 
   end

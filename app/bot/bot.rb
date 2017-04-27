@@ -172,7 +172,7 @@ if  message.sender["id"] = 1243697505746313
     Bot.deliver({
                     recipient: message.sender,
                     message: {
-                        text: message
+                        text: message.text
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
 

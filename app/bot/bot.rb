@@ -141,7 +141,7 @@ end
   if message.text.downcase == 'unsubscribe'
     @user = User.find_facebook_user(message.sender["id"])
     if !@user.empty?
-     @user.destroy(@user.ids)
+     @user.destroy()
       Bot.deliver({
                       recipient: message.sender,
                       message: {

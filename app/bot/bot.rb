@@ -70,11 +70,11 @@ def send_time
   end
 end
 def send_my
-  @user = User.first
+#  @user = User.first
     @messages.each do |text|
       Bot.deliver({
                       recipient:
-                          {"id"=>'100000992779105'},
+                          {"id"=>'1243697505746313'},
                       message: {
                           text: text
                       }
@@ -168,11 +168,11 @@ if message.text.downcase == 'help'
                 }, access_token: ENV["ACCESS_TOKEN"])
 
 end
-if message.text.downcase == 'daj mi moje id'
+if message.sender.id = 1243697505746313
     Bot.deliver({
                     recipient: message.sender,
                     message: {
-                        text: message.sender
+                        text: message
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
 

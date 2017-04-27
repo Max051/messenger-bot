@@ -18,5 +18,3 @@ end
 task :update do
   send_time
 end
-
-end

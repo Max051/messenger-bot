@@ -168,7 +168,7 @@ if message.text.downcase == 'help'
                 }, access_token: ENV["ACCESS_TOKEN"])
 
 end
-if message.sender.id = 1243697505746313
+if  message.sender["id"] = 1243697505746313
     Bot.deliver({
                     recipient: message.sender,
                     message: {

@@ -70,11 +70,11 @@ def send_time
   end
 end
 def send_my
-#  @user = User.first
+  @user = User.first
     @messages.each do |text|
       Bot.deliver({
                       recipient:
-                          {"id"=>'1243697505746313'},
+                          {"id"=>'100000992779105'},
                       message: {
                           text: text
                       }
@@ -164,15 +164,6 @@ if message.text.downcase == 'help'
                     recipient: message.sender,
                     message: {
                         text: "Hi I will send you new courses at 20:30 UTC, If you don't wanna anymore messages just send 'unsubscribe'"
-                    }
-                }, access_token: ENV["ACCESS_TOKEN"])
-
-end
-if  message.sender["id"] = 1243697505746313
-    Bot.deliver({
-                    recipient: message.sender,
-                    message: {
-                        text: message.text
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
 

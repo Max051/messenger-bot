@@ -9,7 +9,7 @@ include Facebook::Messenger
 Facebook::Messenger::Subscriptions.subscribe(access_token:  'EAAIUZBpo0lB8BAKxnplPebwvs5cSDGWFfHr2LNLBaSYIiJjMIy53q9amIGPzErC80VJv83PlroM25e2evFMio2mZAMchdJkVOBfO94DjaF8uZCJNP8pH8cZBFRxfB7R0Tqx9KJ65SQ2SUcB362kVeFzZAZCtCUWauqjACcXIZAqQQZDZD')
 
 @messages = []
-@base_url = 'http://www.wykop.pl/tag/kursyudemy/'
+@base_url = 'https://www.wykop.pl/tag/kursyudemy/'
 def get_messeges(page_with_links)
 page = Nokogiri::HTML(open(@base_url))
 page1 =  page.css('li.entry')[page_with_links]

@@ -148,7 +148,7 @@ end
      )
     else
       message.reply(
-        text: "#{message.sender[:id]}",
+        text: "#{message.sender["id"]}",
       )
     end
 end

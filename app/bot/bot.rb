@@ -140,7 +140,7 @@ Bot.on :message do |message|
 end
 
   if message.text == 'unsubscribe'
-    @user = User.where("facebook_id = ? ",message.sender[:id])
+    @user = User.where("facebook_id = ? ",message.sender["id"])
   if !@user.empty?
      User.find(@user.id).destroy
      message.reply(
@@ -148,7 +148,7 @@ end
      )
     else
       message.reply(
-        text: "#{message.sender["id"]}",
+        text: "You are not subscribed",
       )
     end
 end

@@ -140,17 +140,17 @@ Bot.on :message do |message|
 end
 
   if message.text == 'unsubscribe'
-    @user = User.where("facebook_id = '#{message.sender["id"]}' ")
-    if !@user.empty?
-     @user.destroy
+  #  @user = User.where("facebook_id = '#{message.sender["id"]}' ")
+  #  if !@user.empty?
+  #   @user.destroy
      message.reply(
        text: "I won't send you more messages",
      )
-    else
-      message.reply(
-        text: "You already subscribed or something went wrong",
-      )
-    end
+  #  else
+  #    message.reply(
+  #      text: "You already subscribed or something went wrong",
+  #    )
+  #  end
 end
 
 if message.text == 'help'

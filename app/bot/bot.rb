@@ -110,6 +110,7 @@ Bot.on :postback do |postback|
       end
   end
 end
+=begin
 Bot.on :message do |message|
   if message.text == "Get Started"
 

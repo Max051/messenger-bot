@@ -142,9 +142,9 @@ end
   if message.text == 'unsubscribe'
     @user = User.where("facebook_id = ? ",message.sender[:id])
   #  if !@user.empty?
-  #   @user.destroy
+     @user.destroy(@user.id)
      message.reply(
-       text: "#{@user}",
+       text:  "I won't send you more messages",
      )
   #  else
   #    message.reply(

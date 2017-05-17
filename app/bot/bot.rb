@@ -140,7 +140,7 @@ Bot.on :message do |message|
 end
 
   if message.text == 'unsubscribe'
-    @user = User.find_facebook_user(message.sender["id"])
+    @user = User.where("facebook_id = ?",message.sender["id"]).first
     if !@user.empty?
      @user.destroy()
       Bot.deliver({
@@ -171,4 +171,3 @@ if message.text == 'help'
 end
 
   end
-  

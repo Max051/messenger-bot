@@ -138,9 +138,9 @@ Bot.on :message do |message|
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
 end
-=begin
+
   if message.text == 'unsubscribe'
-    @user = User.where("facebook_id = ?",message.sender["id"]).first
+    @user = User.where("facebook_id = #{message.sender["id"]}")
     if !@user.empty?
      @user.destroy()
       Bot.deliver({
@@ -159,7 +159,7 @@ end
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
 end
-=end
+
 if message.text == 'help'
     Bot.deliver({
                     recipient: message.sender,

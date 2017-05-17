@@ -143,20 +143,13 @@ end
     @user = User.where("facebook_id = '#{message.sender["id"]}' ")
     if !@user.empty?
      @user.destroy
-      Bot.deliver({
-                      recipient: message.sender,
-                      message: {
-                          text: "I won't send you more messages"
-                      }
-                  }, access_token: ENV["ACCESS_TOKEN"])
+     message.reply(
+       text: "I won't send you more messages",
+     )
     else
-
-      Bot.deliver({
-                      recipient: message.sender,
-                      message: {
-                          text: 'You are not  subscribed or something went wrong'
-                      }
-                  }, access_token: ENV["ACCESS_TOKEN"])
+      message.reply(
+        text: "You already subscribed or something went wrong",
+      )
     end
 end
 

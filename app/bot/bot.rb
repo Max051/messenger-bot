@@ -139,7 +139,7 @@ Bot.on :message do |message|
     end
 end
 
-  if message.text == 'unsubscribe'
+  if message.text.downcase == 'unsubscribe'
     @user = User.where("facebook_id = ? ",message.sender["id"])
   if !@user.empty?
     User.destroy(@user.first.id)

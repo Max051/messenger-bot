@@ -51,7 +51,11 @@ def get_category(url)
   cpage = Nokogiri::HTML(open(url))
   cpage1 = cpage.css("div.clp-component-render")[2]
   cpage2 =  cpage1.xpath('course-category-menu')
+  begin
   cpage2_attr =  eval(cpage2.attr('category-data').value)
+rescue => e
+  puts e.inspect
+end
   @category = cpage2_attr.first[:title]
 end
 
@@ -95,8 +99,8 @@ def send_time
   end
 end
 def send_my
+  @messages = []
   get_my_messeges(0)
-  @user = User.first
     @messages.each do |text|
       Bot.deliver({
                       recipient:

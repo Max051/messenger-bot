@@ -22,7 +22,7 @@ page3.each do |a|
     @messages.push(a.text + ' ' + a.values[0])
   end
 end
-
+end
 
 
 

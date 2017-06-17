@@ -35,8 +35,8 @@ page3 =  page2.css('a')
 
 page3.each do |a|
   if a.values[0].include? "www.udemy.com"
-    @messages.push({name: a.text, url:  a.values[0], category:@category})
     get_category(a.values[0])
+    @messages.push({name: a.text, url:  a.values[0], category:@category})
   end
 end
 
@@ -49,14 +49,10 @@ end
 
 def get_category(url)
   cpage = Nokogiri::HTML(open(url))
-#  puts cpage
   cpage1 = cpage.css("div.clp-component-render")[2]
   cpage2 =  cpage1.xpath('course-category-menu')
-    cpage2_attr =  eval(cpage2.attr('category-data'))
-    puts cpage2_attr
-    @category = cpage2_attr.first[:title]
-    puts @category
-
+  cpage2_attr =  eval(cpage2.attr('category-data'))
+  @category = cpage2_attr.first[:title]
 end
 
 Facebook::Messenger::Thread.set({

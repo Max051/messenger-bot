@@ -48,11 +48,11 @@ end
 
 
 def get_category(url)
-  page = Nokogiri::HTML(open(url))
-  page1 = page.css("div.clp-component-render")[3]
-  page2 =  page1.xpath('course-category-menu')
-  page2_attr =  eval(page2[0].attr('category-data'))
-  @category = page2_attr.first[:title]
+  cpage = Nokogiri::HTML(open(url))
+  cpage1 = cpage.css("div.clp-component-render")[3]
+  cpage2 =  cpage1.xpath('course-category-menu')
+  cpage2_attr =  eval(cpage2[0].attr('category-data'))
+  @category = cpage2_attr.first[:title]
 end
 
 Facebook::Messenger::Thread.set({

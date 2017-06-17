@@ -102,7 +102,7 @@ def send_my
                       recipient:
                           {"id"=>'1243697505746313'},
                       message: {
-                          text: "#{text[:name]} #{text[:url]} Category:#{text[:category]}"
+                          text: text[:category]
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
     end

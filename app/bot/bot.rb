@@ -54,7 +54,7 @@ def get_category(url)
   puts cpage1
   cpage2 =  cpage1.xpath('course-category-menu')
   puts cpage2
-    cpage2_attr =  eval(cpage2[0].attr('category-data'))
+    cpage2_attr =  eval(cpage2.attr('category-data'))
     @category = cpage2_attr.first[:title]
 
 end

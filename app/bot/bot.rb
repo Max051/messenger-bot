@@ -23,12 +23,37 @@ page3.each do |a|
   end
 end
 
+
+
+
+def get_my_messeges(page_with_links)
+page = Nokogiri::HTML(open(@base_url))
+page1 =  page.css('li.entry')[page_with_links]
+page2 =  page1.css('span.text-expanded')
+page3 =  page2.css('a')
+
+
+page3.each do |a|
+  if a.values[0].include? "www.udemy.com"
+    @messages.push({name: a.text, url:  a.values[0], category:@category})
+    get_category(a.values[0])
+  end
+end
+
 if(@messages == [])
-  get_messeges(page_with_links += 1)
+  get_my_messeges(page_with_links += 1)
 end
 end
 
 
+
+def get_category(url)
+  page = Nokogiri::HTML(open(url))
+  page1 = page.css("div.clp-component-render")[3]
+  page2 =  page1.xpath('course-category-menu')
+  page2_attr =  eval(page2[0].attr('category-data'))
+  @category = page2_attr.first[:title]
+end
 
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',
@@ -70,13 +95,14 @@ def send_time
   end
 end
 def send_my
+  get_my_messeges(0)
   @user = User.first
     @messages.each do |text|
       Bot.deliver({
                       recipient:
-                          {"id"=>'100000992779105'},
+                          {"id"=>'1243697505746313'},
                       message: {
-                          text: text
+                          text: "#{text[:name]} #{text[:url]} Category:#{text[:category]}"
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
     end

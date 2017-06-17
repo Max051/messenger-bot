@@ -49,11 +49,11 @@ end
 
 def get_category(url)
   cpage = Nokogiri::HTML(open(url))
-  cpage1 = cpage.css("div.clp-component-render")[2]
-  cpage2 =  cpage1.xpath('course-category-menu')
+  cpage1_2 = cpage.css("div.clp-component-render")[2]
+  cpage1_3 = cpage.css("div.clp-component-render")[3]
+  cpage2  =  cpage1_2.xpath('course-category-menu')
   if cpage2.empty?
-      cpage1 = cpage.css("div.clp-component-render")[3]
-      cpage2 =  cpage1.xpath('course-category-menu')
+      cpage2 =  cpage1_3.xpath('course-category-menu')
   end
   cpage2_attr =  eval(cpage2.attr('category-data').value)
   @category = cpage2_attr.first[:title]

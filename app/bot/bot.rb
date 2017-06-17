@@ -51,11 +51,11 @@ def get_category(url)
   cpage = Nokogiri::HTML(open(url))
 #  puts cpage
   cpage1 = cpage.css("div.clp-component-render")[2]
-  puts cpage1
   cpage2 =  cpage1.xpath('course-category-menu')
-  puts cpage2
     cpage2_attr =  eval(cpage2.attr('category-data'))
+    puts cpage2_attr
     @category = cpage2_attr.first[:title]
+    puts @category
 
 end
 

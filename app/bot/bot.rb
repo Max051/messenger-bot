@@ -78,6 +78,7 @@ def get_user_categories
   end
 end
 def get_buttons
+  @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development","Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
     @categories.each { |categorie|
       @buttons.push({type: 'postback',title: categorie, payload: categorie})
      }
@@ -269,7 +270,7 @@ puts @categories
          payload: {
          template_type: 'button',
          text: 'What category you like?',
-         buttons: {:type=>"postback", :title=>"Test Prep", :payload=>"Test Prep"}
+         buttons: [{:type=>"postback", :title=>"Test Prep", :payload=>"Test Prep"}]
         }
        }
  )

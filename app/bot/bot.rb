@@ -197,6 +197,23 @@ Bot.on :postback do |postback|
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
     }
+    if postback.payload == 'Business'
+
+            Bot.deliver({
+                            recipient: postback.sender,
+                            message: {
+                              attachment: {
+                                type: 'template',
+                                payload: {
+                                  template_type: 'button',
+                                  text: 'Would you like to add more categories?',
+                                  buttons:  [{type: 'postback',title: 'Yeah', payload: 'MORE CATEGORIES'},
+                                            {type: 'postback',title: 'No thanks', payload: 'NO MORE CATEGORIES'}]
+                                }
+                              }
+                            }
+                        }, access_token: ENV["ACCESS_TOKEN"])
+    end
     if postback.payload == 'MORE CATEGORIES'
 
             Bot.deliver({

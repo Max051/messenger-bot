@@ -244,26 +244,34 @@ if message.text == "gib me categories"
 puts @categories
 puts @categories.class
 puts "----------------------------!"
-    @categories.each { |categorie|
+    @categories.each do |categorie|
         @buttons.push({type: 'postback',title: categorie, payload: categorie})
         puts @buttons
         puts "----------------------------------------!!"
-       }
-       @buttons.unshift({type: 'postback',title: 'all', payload: 'all' })
+      end
+@buttons.unshift({type: 'postback',title: 'all', payload: 'all' })
 
 #  end
 puts "-----------------------------!!!"
 puts @buttons
-  message.reply(
-    attachment: {
-      type: 'template',
-      payload: {
-        template_type: 'button',
-        text: 'What category you like?',
-        buttons: @buttons
-      }
-    }
-  )
+Bot.deliver({
+
+                recipient: message.sender,
+                message: {
+                    text: 's'
+                }
+            }, access_token: ENV["ACCESS_TOKEN"])
+
+#  message.reply(
+#    attachment: {
+#      type: 'template',
+#      payload: {
+#        template_type: 'button',
+#        text: 'What category you like?',
+#        buttons: @buttons
+#      }
+#    }
+#  )
 end
 
 

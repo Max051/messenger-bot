@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'static_pages/form'
+
   mount Facebook::Messenger::Server, at: 'bot'
 
   #resources :users , only:[:create,:destroy]

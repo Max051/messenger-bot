@@ -10,6 +10,7 @@ Facebook::Messenger::Subscriptions.subscribe(access_token:  'EAAIUZBpo0lB8BAKxnp
 
 @messages = []
 @base_url = 'https://www.wykop.pl/tag/kursyudemy/'
+@categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development""Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
 def get_messeges(page_with_links)
 page = Nokogiri::HTML(open(@base_url))
 page1 =  page.css('li.entry')[page_with_links]
@@ -66,7 +67,22 @@ rescue => e
     puts e.inspect
   end
 end
+def get_user_categories
+  @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development""Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
+  @user = User.where("facebook_id = ? ",message.sender["id"])
+  unless @user.empty?
+    @user.categories.split(',').each { |user_categorie|
+      @categories.delete(user_categorie)
+      }
+  end
+end
+def get_buttons
+    @categories.each { |categorie|
+      @buttons.push({type: 'postback',title: categorie, payload: categorie.uppercase})
+     }
+     @buttons.unshift({type: 'postback',title: 'all', payload: 'all'.uppercase })
 
+end
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',
                                     thread_state: 'new_thread',
@@ -128,7 +144,7 @@ Bot.on :postback do |postback|
   @messages.push("If you don't want anymore messages send 'unsubscribe''")
 
     if postback.payload == "Get Started"
-      @user = User.create(:facebook_id => postback.sender["id"])
+@user = User.create(:facebook_id => postback.sender["id"])
        if @user.valid?
           @messages.each do |text|
           Bot.deliver({
@@ -147,6 +163,41 @@ Bot.on :postback do |postback|
                     }, access_token: ENV["ACCESS_TOKEN"])
       end
   end
+
+  @categories.each { |category|
+    if postback.payload == category.uppercase
+      message.reply(
+        attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'button',
+            text: 'Would you like to add more categories?',
+            buttons:  [{type: 'postback',title: 'Yeah', payload: 'MORE CATEGORIES'},
+                    {type: 'postback',title: 'No thanks', payload: 'NO MORE CATEGORIES'}]
+          }
+        }
+      )
+    end
+    }
+    if postback.payload == 'MORE CATEGORIES'
+      get_user_categories
+      get_buttons
+      message.reply(
+        attachment: {
+          type: 'template',
+          payload: {
+            template_type: 'button',
+            text: 'What category you like?',
+            buttons:@buttons
+          }
+        }
+      )
+    end
+    if postback.payload == 'NO MORE CATEGORIES'
+      message.reply(
+      text: 'ok'
+)
+    end
 end
 
 Bot.on :message do |message|
@@ -176,6 +227,23 @@ Bot.on :message do |message|
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
 end
+
+if message.text == "gibb me categories"
+get_user_categories
+get_buttons
+  message.reply(
+    attachment: {
+      type: 'template',
+      payload: {
+        template_type: 'button',
+        text: 'What category you like?',
+        buttons: @buttons
+      }
+    }
+  )
+end
+
+
 
   if message.text.downcase == 'unsubscribe'
     @user = User.where("facebook_id = ? ",message.sender["id"])

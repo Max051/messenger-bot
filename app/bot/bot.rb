@@ -180,62 +180,74 @@ Bot.on :postback do |postback|
       puts @user
       puts "---------------"
       puts category
-      postback.reply(
-        attachment: {
-          type: 'template',
-          payload: {
-            template_type: 'button',
-            text: 'Would you like to add more categories?',
-            buttons:  [{type: 'postback',title: 'Yeah', payload: 'MORE CATEGORIES'},
-                      {type: 'postback',title: 'No thanks', payload: 'NO MORE CATEGORIES'}]
-          }
-        }
-      )
+
+      Bot.deliver({
+                      recipient: postback.sender,
+                      message: {
+                        attachment: {
+                          type: 'template',
+                          payload: {
+                            template_type: 'button',
+                            text: 'Would you like to add more categories?',
+                            buttons:  [{type: 'postback',title: 'Yeah', payload: 'MORE CATEGORIES'},
+                                      {type: 'postback',title: 'No thanks', payload: 'NO MORE CATEGORIES'}]
+                          }
+                        }
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
     end
     }
     if postback.payload == 'MORE CATEGORIES'
-      postback.reply(
-        attachment: {
-             type: 'template',
-             payload: {
-               template_type: 'generic',
-               elements:[
-                 {
-                   title: "What category you like?",
-                   buttons: [@buttons[0],@buttons[1],@buttons[2]]
-                 },
-                 {
-                   title: "Swipe left/right for more options.",
-                buttons: [@buttons[3],@buttons[4],@buttons[5]]
 
-                 },
-                 {
-                   title: "Swipe left/right for more options.",
-                  buttons: [@buttons[6],@buttons[7],@buttons[8]]
-                 },
-                 {
-                   title: "Swipe left/right for more options.",
-                   buttons: [@buttons[9],@buttons[10],@buttons[11]]
-                 },
-                 {
-                   title: "Swipe left/right for more options.",
-                  buttons: [@buttons[12],@buttons[13],@buttons[14]]
-                 },
-                 {
-                   title: "Swipe left/right for more options.",
-                  buttons: [@buttons[15]]
-                 },
-               ]
+            Bot.deliver({
+                            recipient: postback.sender,
+                            message: {
+                              attachment: {
+                                   type: 'template',
+                                   payload: {
+                                     template_type: 'generic',
+                                     elements:[
+                                       {
+                                         title: "What category you like?",
+                                         buttons: [@buttons[0],@buttons[1],@buttons[2]]
+                                       },
+                                       {
+                                         title: "Swipe left/right for more options.",
+                                      buttons: [@buttons[3],@buttons[4],@buttons[5]]
+
+                                       },
+                                       {
+                                         title: "Swipe left/right for more options.",
+                                        buttons: [@buttons[6],@buttons[7],@buttons[8]]
+                                       },
+                                       {
+                                         title: "Swipe left/right for more options.",
+                                         buttons: [@buttons[9],@buttons[10],@buttons[11]]
+                                       },
+                                       {
+                                         title: "Swipe left/right for more options.",
+                                        buttons: [@buttons[12],@buttons[13],@buttons[14]]
+                                       },
+                                       {
+                                         title: "Swipe left/right for more options.",
+                                        buttons: [@buttons[15]]
+                                       },
+                                     ]
 
 
-            }
-           }
-     )
+                                  }
+                                 }
+                            }
+                        }, access_token: ENV["ACCESS_TOKEN"])
+
     end
     if postback.payload == 'NO MORE CATEGORIES'
-      postback.reply(
-      text: 'ok'
-)
+      Bot.deliver({
+                      recipient: postback.sender,
+                      message: {
+                          text: 'Oh ok'
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
     end
 
 end

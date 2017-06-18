@@ -265,7 +265,7 @@ Bot.deliver({
                          payload: {
                          template_type: 'button',
                          text: 'What category you like?',
-                         buttons: @buttons
+                         buttons: {:type=>"postback", :title=>"Test Prep", :payload=>"Test Prep"}
                         }
                        }
                 }

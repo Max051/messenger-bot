@@ -231,14 +231,14 @@ end
 
 if message.text == "gibb me categories"
 #  def get_user_categories
-    @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development""Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
-    @users = User.where("facebook_id = ? ",message.sender["id"])
-    unless @users.empty?
-      @users.first.categories.split(',').each { |user_categorie|
-        @categories.delete(user_categorie)
-        }
+#    @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development""Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
+#    @users = User.where("facebook_id = ? ",message.sender["id"])
+#    unless @users.empty?
+#      @users.first.categories.split(',').each { |user_categorie|
+#        @categories.delete(user_categorie)
+#        }
   #  end
-  end
+#  end
 #  def get_buttons
       @categories.each { |categorie|
         @buttons.push({type: 'postback',title: categorie, payload: categorie.uppercase})

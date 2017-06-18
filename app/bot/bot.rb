@@ -143,7 +143,7 @@ def send_my
     puts my_categories
 
     @messages.each do |message|
-      if my_categories.include?(text[:category])
+      if my_categories.include?(message[:category])
         Bot.deliver({
                         recipient:
                             {"id"=>'1243697505746313'},

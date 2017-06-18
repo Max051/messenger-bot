@@ -70,11 +70,10 @@ rescue => e
 end
 
 def get_buttons
-  @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development","Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
+  @categories = ["All","Development","Business","IT & Software", "Office Productivity","Personal Development","Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
     @categories.each { |categorie|
       @buttons.push({type: 'postback',title: categorie, payload: categorie})
      }
-     @buttons.unshift({type: 'postback',title: 'all', payload: 'all' })
 
 end
 def add_category_to_user(new_category,sender_id)
@@ -406,7 +405,7 @@ if message.text == 'Yes'
              },
              {
                title: "Swipe left/right for more options.",
-              buttons: [@buttons[15]]
+              buttons: [@buttons[15] @buttons[16]]
              },
            ]
 

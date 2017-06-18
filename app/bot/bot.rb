@@ -93,6 +93,22 @@ def add_category_to_user(new_category)
     @users.first.category += ",#{new_category}"
   end
 end
+def ask_for_more_categories
+  Bot.deliver({
+                  recipient: postback.sender,
+                  message: {
+                    attachment: {
+                      type: 'template',
+                      payload: {
+                        template_type: 'button',
+                        text: 'Would you like to add more categories?',
+                        buttons:  [{type: 'postback',title: 'Yeah', payload: 'MORE CATEGORIES'},
+                                  {type: 'postback',title: 'No thanks', payload: 'NO MORE CATEGORIES'}]
+                      }
+                    }
+                  }
+              }, access_token: ENV["ACCESS_TOKEN"])
+end
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',
                                     thread_state: 'new_thread',
@@ -147,14 +163,15 @@ def send_my
 end
 
 Bot.on :postback do |postback|
-  @messages = []
-  get_messeges(0)
-  @messages.unshift("Hi")
-  @messages.push("That's all for now I will send you new courses tommorow")
-  @messages.push("If you don't want anymore messages send 'unsubscribe''")
+  case postback.payload
+    when "Get Started"
+      @messages = []
+      get_messeges(0)
+      @messages.unshift("Hi")
+      @messages.push("That's all for now I will send you new courses tommorow")
+      @messages.push("If you don't want anymore messages send 'unsubscribe''")
 
-    if postback.payload == "Get Started"
-@user = User.create(:facebook_id => postback.sender["id"])
+    @user = User.create(:facebook_id => postback.sender["id"])
        if @user.valid?
           @messages.each do |text|
           Bot.deliver({
@@ -172,102 +189,58 @@ Bot.on :postback do |postback|
                         }
                     }, access_token: ENV["ACCESS_TOKEN"])
       end
-  end
-=begin
-  @categories.each { |category|
-    if postback.payload == category
-      add_category_to_user(category)
-      puts @user
-      puts "---------------"
-      puts category
+    when 'MORE CATEGORIES'
+              Bot.deliver({
+                              recipient: postback.sender,
+                              message: {
+                                attachment: {
+                                     type: 'template',
+                                     payload: {
+                                       template_type: 'generic',
+                                       elements:[
+                                         {
+                                           title: "What category you like?",
+                                           buttons: [@buttons[0],@buttons[1],@buttons[2]]
+                                         },
+                                         {
+                                           title: "Swipe left/right for more options.",
+                                        buttons: [@buttons[3],@buttons[4],@buttons[5]]
 
-      Bot.deliver({
-                      recipient: postback.sender,
-                      message: {
-                        attachment: {
-                          type: 'template',
-                          payload: {
-                            template_type: 'button',
-                            text: 'Would you like to add more categories?',
-                            buttons:  [{type: 'postback',title: 'Yeah', payload: 'MORE CATEGORIES'},
-                                      {type: 'postback',title: 'No thanks', payload: 'NO MORE CATEGORIES'}]
-                          }
-                        }
-                      }
-                  }, access_token: ENV["ACCESS_TOKEN"])
-    end
-    }
-=end
-    if postback.payload == 'Business'
+                                         },
+                                         {
+                                           title: "Swipe left/right for more options.",
+                                          buttons: [@buttons[6],@buttons[7],@buttons[8]]
+                                         },
+                                         {
+                                           title: "Swipe left/right for more options.",
+                                           buttons: [@buttons[9],@buttons[10],@buttons[11]]
+                                         },
+                                         {
+                                           title: "Swipe left/right for more options.",
+                                          buttons: [@buttons[12],@buttons[13],@buttons[14]]
+                                         },
+                                         {
+                                           title: "Swipe left/right for more options.",
+                                          buttons: [@buttons[15]]
+                                         },
+                                       ]
 
-            Bot.deliver({
-                            recipient: postback.sender,
-                            message: {
-                              attachment: {
-                                type: 'template',
-                                payload: {
-                                  template_type: 'button',
-                                  text: 'Would you like to add more categories?',
-                                  buttons:  [{type: 'postback',title: 'Yeah', payload: 'MORE CATEGORIES'},
-                                            {type: 'postback',title: 'No thanks', payload: 'NO MORE CATEGORIES'}]
-                                }
+
+                                    }
+                                   }
                               }
-                            }
-                        }, access_token: ENV["ACCESS_TOKEN"])
-    end
-    if postback.payload == 'MORE CATEGORIES'
-
-            Bot.deliver({
-                            recipient: postback.sender,
-                            message: {
-                              attachment: {
-                                   type: 'template',
-                                   payload: {
-                                     template_type: 'generic',
-                                     elements:[
-                                       {
-                                         title: "What category you like?",
-                                         buttons: [@buttons[0],@buttons[1],@buttons[2]]
-                                       },
-                                       {
-                                         title: "Swipe left/right for more options.",
-                                      buttons: [@buttons[3],@buttons[4],@buttons[5]]
-
-                                       },
-                                       {
-                                         title: "Swipe left/right for more options.",
-                                        buttons: [@buttons[6],@buttons[7],@buttons[8]]
-                                       },
-                                       {
-                                         title: "Swipe left/right for more options.",
-                                         buttons: [@buttons[9],@buttons[10],@buttons[11]]
-                                       },
-                                       {
-                                         title: "Swipe left/right for more options.",
-                                        buttons: [@buttons[12],@buttons[13],@buttons[14]]
-                                       },
-                                       {
-                                         title: "Swipe left/right for more options.",
-                                        buttons: [@buttons[15]]
-                                       },
-                                     ]
-
-
-                                  }
-                                 }
-                            }
-                        }, access_token: ENV["ACCESS_TOKEN"])
-
-    end
-    if postback.payload == 'NO MORE CATEGORIES'
+                          }, access_token: ENV["ACCESS_TOKEN"])
+    when 'NO MORE CATEGORIES'
       Bot.deliver({
-                      recipient: postback.sender,
-                      message: {
-                          text: 'Oh ok'
-                      }
-                  }, access_token: ENV["ACCESS_TOKEN"])
-    end
-
+                  recipient: postback.sender,
+                  message: {
+                      text: 'Oh ok'
+                  }
+              }, access_token: ENV["ACCESS_TOKEN"])
+    when "Development","Business","IT & Software", "Office Productivity","Personal Development","Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"
+      add_category_to_user(postback.payload)
+      ask_for_more_categories
+      puts @user
 end
 
 Bot.on :message do |message|

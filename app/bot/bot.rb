@@ -69,9 +69,9 @@ rescue => e
 end
 def get_user_categories
   @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development""Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
-  @user = User.where("facebook_id = ? ",message.sender["id"])
-  unless @user.empty?
-    @user.categories.split(',').each { |user_categorie|
+  @users = User.where("facebook_id = ? ",message.sender["id"])
+  unless @users.empty?
+    @users.first.categories.split(',').each { |user_categorie|
       @categories.delete(user_categorie)
       }
   end

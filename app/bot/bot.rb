@@ -90,11 +90,8 @@ def add_category_to_user(new_category)
   if @users.first.categories.nil?
     @users.first.categories = new_category
   else
-    @users.first.category += ",#{new_category}"
+    @users.first.categories += ",#{new_category}"
   end
-end
-def ask_for_more_categories
-
 end
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',
@@ -224,8 +221,8 @@ Bot.on :postback do |postback|
                       text: 'Oh ok'
                   }
               }, access_token: ENV["ACCESS_TOKEN"])
-    when "Development"
-    #  add_category_to_user(postback.payload)
+    when "Development","Business","IT & Software", "Office Productivity","Personal Development""Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"
+    add_category_to_user(postback.payload)
     Bot.deliver({
                     recipient: postback.sender,
                     message: {

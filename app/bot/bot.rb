@@ -148,7 +148,7 @@ def send_my
                         recipient:
                             {"id"=>'1243697505746313'},
                         message: {
-                            message: message[:title] + message[:url]
+                            message: " #{message[:title]} #{message[:url]}" 
                         }
                     }, access_token: ENV["ACCESS_TOKEN"])
       end

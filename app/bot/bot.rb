@@ -88,12 +88,13 @@ end
 def add_category_to_user(new_category,sender_id)
   puts 'works'
   @users = User.where("facebook_id = ? ",sender_id)
-  puts @user
+  puts @users.first
   if @users.first.categories.nil?
     @users.first.categories = new_category
   else
     @users.first.categories += ",#{new_category}"
   end
+  puts @users.first.categories
 end
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',

@@ -270,7 +270,7 @@ puts @categories
          payload: {
          template_type: 'button',
          text: 'What category you like?',
-         buttons: [{:type=>"postback", :title=>"Test Prep", :payload=>"Test Prep"}]
+         buttons: [@buttons]
         }
        }
  )

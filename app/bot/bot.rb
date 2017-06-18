@@ -85,6 +85,14 @@ def get_buttons
      @buttons.unshift({type: 'postback',title: 'all', payload: 'all' })
 
 end
+def add_category_to_user(new_category)
+  @users = User.where("facebook_id = ? ",postback.sender["id"])
+  if @users.first.category.nil?
+    @users.first.category = new_category
+  else
+    @users.first.category += ",#{new_category}"
+  end
+end
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',
                                     thread_state: 'new_thread',
@@ -165,9 +173,10 @@ Bot.on :postback do |postback|
                     }, access_token: ENV["ACCESS_TOKEN"])
       end
   end
-=begin
+
   @categories.each { |category|
     if postback.payload == category
+      add_category_to_user(category)
       message.reply(
         attachment: {
           type: 'template',
@@ -175,22 +184,36 @@ Bot.on :postback do |postback|
             template_type: 'button',
             text: 'Would you like to add more categories?',
             buttons:  [{type: 'postback',title: 'Yeah', payload: 'MORE CATEGORIES'},
-                    {type: 'postback',title: 'No thanks', payload: 'NO MORE CATEGORIES'}]
+                      {type: 'postback',title: 'No thanks', payload: 'NO MORE CATEGORIES'}]
           }
         }
       )
     end
     }
     if postback.payload == 'MORE CATEGORIES'
-      get_user_categories
-      get_buttons
       message.reply(
         attachment: {
           type: 'template',
           payload: {
             template_type: 'button',
             text: 'What category you like?',
-            buttons:@buttons
+            buttons:[
+                  {:type=>"postback", :title=>"all", :payload=>"all"},
+                  {:type=>"postback", :title=>"Development", :payload=>"Development"},
+                  {:type=>"postback", :title=>"Business", :payload=>"Business"},
+                  {:type=>"postback", :title=>"IT & Software", :payload=>"IT & Software"},
+                  {:type=>"postback", :title=>"Office Productivity", :payload=>"Office Productivity"},
+                  {:type=>"postback", :title=>"Personal Development", :payload=>"Personal Development"},
+                  {:type=>"postback", :title=>"Design", :payload=>"Design"},
+                  {:type=>"postback", :title=>"Marketing", :payload=>"Marketing"},
+                  {:type=>"postback", :title=>"Lifestyle", :payload=>"Lifestyle"},
+                  {:type=>"postback", :title=>"Photography", :payload=>"Photography"},
+                  {:type=>"postback", :title=>"Health & Fitness", :payload=>"Health & Fitness"},
+                  {:type=>"postback", :title=>"Teacher Training", :payload=>"Teacher Training"},
+                  {:type=>"postback", :title=>"Music", :payload=>"Music"},
+                  {:type=>"postback", :title=>"Academics", :payload=>"Academics"},
+                  {:type=>"postback", :title=>"Language", :payload=>"Language"},
+                  {:type=>"postback", :title=>"Test Prep", :payload=>"Test Prep"}]
           }
         }
       )
@@ -200,7 +223,7 @@ Bot.on :postback do |postback|
       text: 'ok'
 )
     end
-=end
+
 end
 
 Bot.on :message do |message|
@@ -242,28 +265,10 @@ if message.text == "gib me categories"
   #  end
 #  end
 #  def get_buttons
-get_buttons
+#get_buttons
 puts @buttons
 puts "---"
 puts @categories
-
-=begin
-      Bot.deliver({
-
-                recipient: message.sender,
-                message: {
-                    text: 's',
-                    attachment: {
-                         type: 'template',
-                         payload: {
-                         template_type: 'button',
-                         text: 'What category you like?',
-                         buttons: {:type=>"postback", :title=>"Test Prep", :payload=>"Test Prep"}
-                        }
-                       }
-                }
-            }, access_token: ENV["ACCESS_TOKEN"])
-=end
 
   message.reply(
     attachment: {
@@ -271,7 +276,24 @@ puts @categories
          payload: {
          template_type: 'button',
          text: 'What category you like?',
-         buttons: [@buttons.first]
+         buttons: [
+            {:type=>"postback", :title=>"all", :payload=>"all"},
+            {:type=>"postback", :title=>"Development", :payload=>"Development"},
+            {:type=>"postback", :title=>"Business", :payload=>"Business"},
+            {:type=>"postback", :title=>"IT & Software", :payload=>"IT & Software"},
+            {:type=>"postback", :title=>"Office Productivity", :payload=>"Office Productivity"},
+            {:type=>"postback", :title=>"Personal Development", :payload=>"Personal Development"},
+            {:type=>"postback", :title=>"Design", :payload=>"Design"},
+            {:type=>"postback", :title=>"Marketing", :payload=>"Marketing"},
+            {:type=>"postback", :title=>"Lifestyle", :payload=>"Lifestyle"},
+            {:type=>"postback", :title=>"Photography", :payload=>"Photography"},
+            {:type=>"postback", :title=>"Health & Fitness", :payload=>"Health & Fitness"},
+            {:type=>"postback", :title=>"Teacher Training", :payload=>"Teacher Training"},
+            {:type=>"postback", :title=>"Music", :payload=>"Music"},
+            {:type=>"postback", :title=>"Academics", :payload=>"Academics"},
+            {:type=>"postback", :title=>"Language", :payload=>"Language"},
+            {:type=>"postback", :title=>"Test Prep", :payload=>"Test Prep"}
+         ]
         }
        }
  )

@@ -68,15 +68,7 @@ rescue => e
     puts e.inspect
   end
 end
-def get_user_categories
-  @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development","Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
-  @users = User.where("facebook_id = ? ",message.sender["id"])
-  unless @users.empty?
-    @users.first.categories.split(',').each { |user_categorie|
-      @categories.delete(user_categorie)
-      }
-  end
-end
+
 def get_buttons
   @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development","Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
     @categories.each { |categorie|
@@ -97,6 +89,15 @@ def add_category_to_user(new_category,sender_id)
   puts @users.first.categories
   @users.first.save
 end
+def add_welcome_messages
+  @messages.unshift({name: "I've got some courses for you", url:'',category:''})
+  @messages.unshift({name: "Hi", url:'',category:''})
+  @messages.push({name: "That's all for now I will send you new courses tommorow", url:'',category:''})
+  @messages.push({name: "If you don't want anymore messages send 'unsubscribe''", url:'',category:''})
+  @messages.push({name: "See you soon", url:'',category:''})
+
+
+end
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',
                                     thread_state: 'new_thread',
@@ -111,48 +112,104 @@ Facebook::Messenger::Thread.set({
 
 def send_time
   @messages = []
-  get_messeges(0)
-  @messages.unshift("I've got some courses for you")
-  @messages.unshift("Hi")
-  @messages.push("That's all for now I will send you new courses tommorow")
-  @messages.push("If you don't want anymore messages send 'unsubscribe''")
-  @messages.push("See you soon")
+  get_my_messeges(0)
+  add_welcome_messages
+  @messages.push({ name:"Also I have new feature, now you can choose which course categories are you intrested in", url:'',category:'' })
 
   @users = User.all
 
   @users.each do  |user|
-    @messages.each do |text|
-      begin
-      Bot.deliver({
-                      recipient:
-                          {"id"=>user.facebook_id},
-                      message: {
-                          text: text
-                      }
-                  }, access_token: ENV["ACCESS_TOKEN"])
-      rescue => e
-        puts e.inspect
+    if user.categories.nil?
+      @messages.each do |message|
+        begin
+            Bot.deliver({
+                            recipient:
+                                {"id"=>user.facebook_id},
+                            message: {
+                                text: " #{message[:name]}  #{message[:url]}"
+                            }
+                        }, access_token: ENV["ACCESS_TOKEN"])
+        rescue => e
+          puts e.inspect
+        end
       end
+    else
+        my_categories = User.where("facebook_id = ? ",user.facebook_id).first.categories.split(',')
+        @messages.each do |message|
+
+          if my_categories.include?(message[:category])
+              begin
+            Bot.deliver({
+                            recipient:
+                                {"id"=>user.facebook_id},
+                            message: {
+                                text: " #{message[:name]}  #{message[:url]}"
+                            }
+                        }, access_token: ENV["ACCESS_TOKEN"])
+                rescue => e
+              puts e.inspect
+            end
+          end
+        end
     end
+    Bot.deliver({
+                    recipient:
+                        {"id"=>user.facebook_id},
+                    message: {
+                        text: "Wanna set categories?",
+                        quick_replies: [
+                          {
+                            content_type: 'text',
+                            title: 'Yes',
+                            payload: 'MORE CATEGORIES'
+                          },
+                          {
+                            content_type: 'text',
+                            title: 'No',
+                            payload: 'NO MORE CATEGORIES'
+                          }
+                        ]
+                    }
+                }, access_token: ENV["ACCESS_TOKEN"])
   end
 end
+
 def send_my
   @messages = []
     get_my_messeges(0)
+    add_welcome_messages
+    messages.push({ name:"Also I have new feature, now you can choose which course categories are you intrested in", url:'',category:'' })
     my_categories = User.where("facebook_id = ? ",'1243697505746313').first.categories.split(',')
-    puts my_categories
-
     @messages.each do |message|
       if my_categories.include?(message[:category])
         Bot.deliver({
                         recipient:
                             {"id"=>'1243697505746313'},
                         message: {
-                            text: " #{message[:title]} #{message[:url]}" 
+                            text: " #{message[:name]}  #{message[:url]}"
                         }
                     }, access_token: ENV["ACCESS_TOKEN"])
       end
     end
+    Bot.deliver({
+                    recipient:
+                        {"id"=>'1243697505746313'},
+                    message: {
+                        text: "Wanna set categories?",
+                        quick_replies: [
+                          {
+                            content_type: 'text',
+                            title: 'Yes',
+                            payload: 'MORE CATEGORIES'
+                          },
+                          {
+                            content_type: 'text',
+                            title: 'No',
+                            payload: 'NO MORE CATEGORIES'
+                          }
+                        ]
+                    }
+                }, access_token: ENV["ACCESS_TOKEN"])
 end
 
 Bot.on :postback do |postback|
@@ -277,7 +334,7 @@ Bot.on :message do |message|
     end
 end
 
-if message.text == "gib me categories"
+if message.text.downcase == "categories"
 get_buttons
   message.reply(
     attachment: {
@@ -338,7 +395,8 @@ if message.text == 'help'
     Bot.deliver({
                     recipient: message.sender,
                     message: {
-                        text: "Hi I will send you new courses at 20:30 UTC, If you don't wanna anymore messages just send 'unsubscribe'"
+                        text: "Hi I will send you new courses at 20:30 UTC, If you don't wanna anymore messages just send 'unsubscribe'
+                         If you want to choose categories send 'categories' "
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
 

@@ -181,6 +181,7 @@ def send_my
     my_categories = User.where("facebook_id = ? ",'1243697505746313').first.categories.split(',')
     @messages.each do |message|
       if my_categories.include?(message[:category]) || message[:category] == ''
+        begin
         Bot.deliver({
                         recipient:
                             {"id"=>'1243697505746313'},
@@ -188,6 +189,9 @@ def send_my
                             text: " #{message[:name]}  #{message[:url]}"
                         }
                     }, access_token: ENV["ACCESS_TOKEN"])
+                  rescue => e
+                    puts e.inspect
+                  end
       end
     end
     Bot.deliver({

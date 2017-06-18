@@ -306,8 +306,7 @@ get_buttons
              {
                title: "Swipe left/right for more options.",
                buttons: @buttons[15]
-             },
-           ]
+             }
            ]
 
 

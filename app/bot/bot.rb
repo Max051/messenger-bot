@@ -174,13 +174,13 @@ def send_time
 end
 
 def send_my
-  @messages = []
+    @messages = []
     get_my_messeges(0)
     add_welcome_messages
     @messages.push({ name:"Also I have new feature, now you can choose which course categories are you intrested in", url:'',category:'' })
     my_categories = User.where("facebook_id = ? ",'1243697505746313').first.categories.split(',')
     @messages.each do |message|
-      if my_categories.include?(message[:category])
+      if my_categories.include?(message[:category]) || message[:category] == ''
         Bot.deliver({
                         recipient:
                             {"id"=>'1243697505746313'},

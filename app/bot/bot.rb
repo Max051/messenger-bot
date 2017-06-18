@@ -264,13 +264,14 @@ puts @categories
                 }
             }, access_token: ENV["ACCESS_TOKEN"])
 =end
+
   message.reply(
     attachment: {
          type: 'template',
          payload: {
          template_type: 'button',
          text: 'What category you like?',
-         buttons: [@buttons]
+         buttons: [@buttons.first]
         }
        }
  )

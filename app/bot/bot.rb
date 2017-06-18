@@ -69,7 +69,7 @@ rescue => e
   end
 end
 def get_user_categories
-  @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development""Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
+  @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development","Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
   @users = User.where("facebook_id = ? ",message.sender["id"])
   unless @users.empty?
     @users.first.categories.split(',').each { |user_categorie|
@@ -221,8 +221,8 @@ Bot.on :postback do |postback|
                       text: 'Oh ok'
                   }
               }, access_token: ENV["ACCESS_TOKEN"])
-    when "Development","Business","IT & Software", "Office Productivity","Personal Development""Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"
-  #  add_category_to_user(postback.payload)
+    when "Development","Business","IT & Software", "Office Productivity","Personal Development","Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"
+    add_category_to_user(postback.payload)
       Bot.deliver({
                     recipient: postback.sender,
                     message: {

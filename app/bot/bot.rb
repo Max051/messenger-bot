@@ -138,15 +138,20 @@ def send_time
 end
 def send_my
   @messages = []
-  get_my_messeges(0)
-    @messages.each do |text|
-      Bot.deliver({
-                      recipient:
-                          {"id"=>'1243697505746313'},
-                      message: {
-                          text: text[:category]
-                      }
-                  }, access_token: ENV["ACCESS_TOKEN"])
+    get_my_messeges(0)
+    my_categories = User.where("facebook_id = 1243697505746313").first.categories.split(',')
+    puts my_categories
+
+    @messages.each do |message|
+      if my_categories.include?(text[:category])
+        Bot.deliver({
+                        recipient:
+                            {"id"=>'1243697505746313'},
+                        message: {
+                            message: text[:title] + text[:url]
+                        }
+                    }, access_token: ENV["ACCESS_TOKEN"])
+      end
     end
 end
 

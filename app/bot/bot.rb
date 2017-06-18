@@ -193,30 +193,45 @@ Bot.on :postback do |postback|
     if postback.payload == 'MORE CATEGORIES'
       message.reply(
         attachment: {
-          type: 'template',
-          payload: {
-            template_type: 'button',
-            text: 'What category you like?',
-            buttons:[
-                  {:type=>"postback", :title=>"all", :payload=>"all"},
-                  {:type=>"postback", :title=>"Development", :payload=>"Development"},
-                  {:type=>"postback", :title=>"Business", :payload=>"Business"},
-                  {:type=>"postback", :title=>"IT & Software", :payload=>"IT & Software"},
-                  {:type=>"postback", :title=>"Office Productivity", :payload=>"Office Productivity"},
-                  {:type=>"postback", :title=>"Personal Development", :payload=>"Personal Development"},
-                  {:type=>"postback", :title=>"Design", :payload=>"Design"},
-                  {:type=>"postback", :title=>"Marketing", :payload=>"Marketing"},
-                  {:type=>"postback", :title=>"Lifestyle", :payload=>"Lifestyle"},
-                  {:type=>"postback", :title=>"Photography", :payload=>"Photography"},
-                  {:type=>"postback", :title=>"Health & Fitness", :payload=>"Health & Fitness"},
-                  {:type=>"postback", :title=>"Teacher Training", :payload=>"Teacher Training"},
-                  {:type=>"postback", :title=>"Music", :payload=>"Music"},
-                  {:type=>"postback", :title=>"Academics", :payload=>"Academics"},
-                  {:type=>"postback", :title=>"Language", :payload=>"Language"},
-                  {:type=>"postback", :title=>"Test Prep", :payload=>"Test Prep"}]
-          }
-        }
-      )
+             type: 'template',
+             payload: {
+               template_type: 'generic',
+               elements:[
+                 {
+                   title: "What category you like?",
+                   buttons: @buttons[0..2]
+                 },
+                 {
+                   title: "Swipe left/right for more options.",
+                   buttons: [
+                buttons: @buttons[3..5]
+                   ]
+                 },
+                 {
+                   title: "Swipe left/right for more options.",
+                   buttons: [
+                    buttons: @buttons[6..8]
+                   ]
+                 },
+                 {
+                   title: "Swipe left/right for more options.",
+                   buttons: @buttons[9..10]
+
+                 },
+                 {
+                   title: "Swipe left/right for more options.",
+                   buttons: @buttons[11..13]
+                 },
+                 {
+                   title: "Swipe left/right for more options.",
+                   buttons: @buttons[14..16]
+                 },
+               ]
+
+
+            }
+           }
+     )
     end
     if postback.payload == 'NO MORE CATEGORIES'
       message.reply(
@@ -265,21 +280,48 @@ if message.text == "gib me categories"
   #  end
 #  end
 #  def get_buttons
-#get_buttons
+get_buttons
 puts @buttons
 puts "---"
 puts @categories
-
   message.reply(
     attachment: {
          type: 'template',
          payload: {
-         template_type: 'button',
-         text: 'What category you like?',
-         buttons: [
-            {:type=>"postback", :title=>"all", :payload=>"all"},
-            {:type=>"postback", :title=>"Development", :payload=>"Development"}
-          ]
+           template_type: 'generic',
+           elements:[
+             {
+               title: "What category you like?",
+               buttons: @buttons[0..2]
+             },
+             {
+               title: "Swipe left/right for more options.",
+               buttons: [
+            buttons: @buttons[3..5]
+               ]
+             },
+             {
+               title: "Swipe left/right for more options.",
+               buttons: [
+                buttons: @buttons[6..8]
+               ]
+             },
+             {
+               title: "Swipe left/right for more options.",
+               buttons: @buttons[9..10]
+
+             },
+             {
+               title: "Swipe left/right for more options.",
+               buttons: @buttons[11..13]
+             },
+             {
+               title: "Swipe left/right for more options.",
+               buttons: @buttons[14..16]
+             },
+           ]
+
+
         }
        }
  )

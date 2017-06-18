@@ -85,8 +85,10 @@ def get_buttons
      @buttons.unshift({type: 'postback',title: 'all', payload: 'all' })
 
 end
-def add_category_to_user(new_category)
-  @users = User.where("facebook_id = ? ",postback.sender["id"])
+def add_category_to_user(new_category,sender_id)
+  puts 'works'
+  @users = User.where("facebook_id = ? ",sender_id)
+  puts @user
   if @users.first.categories.nil?
     @users.first.categories = new_category
   else
@@ -222,7 +224,7 @@ Bot.on :postback do |postback|
                   }
               }, access_token: ENV["ACCESS_TOKEN"])
     when "Development","Business","IT & Software", "Office Productivity","Personal Development","Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"
-    add_category_to_user(postback.payload)
+    add_category_to_user(postback.payload,postback.sender["id"])
       Bot.deliver({
                     recipient: postback.sender,
                     message: {
@@ -237,7 +239,7 @@ Bot.on :postback do |postback|
                       }
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
-      puts @user
+
 end
 end
 Bot.on :message do |message|

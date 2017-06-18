@@ -136,7 +136,7 @@ def send_time
         my_categories = User.where("facebook_id = ? ",user.facebook_id).first.categories.split(',')
         @messages.each do |message|
 
-          if my_categories.include?(message[:category])
+          if my_categories.include?(message[:category]) || message[:category] == ''
               begin
             Bot.deliver({
                             recipient:

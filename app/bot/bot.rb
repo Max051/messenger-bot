@@ -87,8 +87,8 @@ def get_buttons
 end
 def add_category_to_user(new_category)
   @users = User.where("facebook_id = ? ",postback.sender["id"])
-  if @users.first.category.nil?
-    @users.first.category = new_category
+  if @users.first.categories.nil?
+    @users.first.categories = new_category
   else
     @users.first.category += ",#{new_category}"
   end
@@ -177,7 +177,6 @@ Bot.on :postback do |postback|
   @categories.each { |category|
     if postback.payload == category
       add_category_to_user(category)
-      puts @user
       message.reply(
         attachment: {
           type: 'template',
@@ -200,27 +199,28 @@ Bot.on :postback do |postback|
                elements:[
                  {
                    title: "What category you like?",
-                   buttons: @buttons[0..2]
+                   buttons: [@buttons[0],@buttons[1],@buttons[2]]
                  },
                  {
                    title: "Swipe left/right for more options.",
-                buttons: @buttons[3..5]
+                buttons: [@buttons[3],@buttons[4],@buttons[5]]
+
                  },
                  {
                    title: "Swipe left/right for more options.",
-                    buttons: @buttons[6..8]
+                  buttons: [@buttons[6],@buttons[7],@buttons[8]]
                  },
                  {
                    title: "Swipe left/right for more options.",
-                   buttons: @buttons[9..11]
+                   buttons: [@buttons[9],@buttons[10],@buttons[11]]
                  },
                  {
                    title: "Swipe left/right for more options.",
-                   buttons: @buttons[12..14]
+                  buttons: [@buttons[12],@buttons[13],@buttons[14]]
                  },
                  {
                    title: "Swipe left/right for more options.",
-                   buttons: @buttons[15]
+                  buttons: [@buttons[15]]
                  },
                ]
 
@@ -277,6 +277,9 @@ if message.text == "gib me categories"
 #  end
 #  def get_buttons
 get_buttons
+puts @buttons
+puts "---"
+puts @categories
   message.reply(
     attachment: {
          type: 'template',
@@ -285,28 +288,29 @@ get_buttons
            elements:[
              {
                title: "What category you like?",
-               buttons: @buttons[0..2]
+               buttons: [@buttons[0],@buttons[1],@buttons[2]]
              },
              {
                title: "Swipe left/right for more options.",
-            buttons: @buttons[3..5]
+            buttons: [@buttons[3],@buttons[4],@buttons[5]]
+
              },
              {
                title: "Swipe left/right for more options.",
-                buttons: @buttons[6..8]
+              buttons: [@buttons[6],@buttons[7],@buttons[8]]
              },
              {
                title: "Swipe left/right for more options.",
-               buttons: @buttons[9..11]
+               buttons: [@buttons[9],@buttons[10],@buttons[11]]
              },
              {
                title: "Swipe left/right for more options.",
-               buttons: @buttons[12..14]
+              buttons: [@buttons[12],@buttons[13],@buttons[14]]
              },
              {
                title: "Swipe left/right for more options.",
-               buttons: @buttons[15]
-             }
+              buttons: [@buttons[15]]
+             },
            ]
 
 

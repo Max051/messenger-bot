@@ -95,6 +95,7 @@ def add_category_to_user(new_category,sender_id)
     @users.first.categories += ",#{new_category}"
   end
   puts @users.first.categories
+  @users.first.save
 end
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',

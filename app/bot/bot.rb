@@ -94,20 +94,7 @@ def add_category_to_user(new_category)
   end
 end
 def ask_for_more_categories
-  Bot.deliver({
-                  recipient: postback.sender,
-                  message: {
-                    attachment: {
-                      type: 'template',
-                      payload: {
-                        template_type: 'button',
-                        text: 'Would you like to add more categories?',
-                        buttons:  [{type: 'postback',title: 'Yeah', payload: 'MORE CATEGORIES'},
-                                  {type: 'postback',title: 'No thanks', payload: 'NO MORE CATEGORIES'}]
-                      }
-                    }
-                  }
-              }, access_token: ENV["ACCESS_TOKEN"])
+
 end
 Facebook::Messenger::Thread.set({
                                     setting_type: 'call_to_actions',
@@ -239,7 +226,20 @@ Bot.on :postback do |postback|
               }, access_token: ENV["ACCESS_TOKEN"])
     when "Development"
     #  add_category_to_user(postback.payload)
-      ask_for_more_categories
+    Bot.deliver({
+                    recipient: postback.sender,
+                    message: {
+                      attachment: {
+                        type: 'template',
+                        payload: {
+                          template_type: 'button',
+                          text: 'Would you like to add more categories?',
+                          buttons:  [{type: 'postback',title: 'Yeah', payload: 'MORE CATEGORIES'},
+                                    {type: 'postback',title: 'No thanks', payload: 'NO MORE CATEGORIES'}]
+                        }
+                      }
+                    }
+                }, access_token: ENV["ACCESS_TOKEN"])
       puts @user
 end
 end

@@ -335,7 +335,7 @@ Bot.on :message do |message|
 end
 
 if message.text.downcase == "categories"
-get_buttons
+  get_buttons
   message.reply(
     attachment: {
          type: 'template',
@@ -375,10 +375,52 @@ get_buttons
  )
 end
 
-puts message.text
-puts message.payload
+if message.text == 'Yes'
+  get_buttons
+  message.reply(
+    attachment: {
+         type: 'template',
+         payload: {
+           template_type: 'generic',
+           elements:[
+             {
+               title: "What category you like?",
+               buttons: [@buttons[0],@buttons[1],@buttons[2]]
+             },
+             {
+               title: "Swipe left/right for more options.",
+            buttons: [@buttons[3],@buttons[4],@buttons[5]]
+
+             },
+             {
+               title: "Swipe left/right for more options.",
+              buttons: [@buttons[6],@buttons[7],@buttons[8]]
+             },
+             {
+               title: "Swipe left/right for more options.",
+               buttons: [@buttons[9],@buttons[10],@buttons[11]]
+             },
+             {
+               title: "Swipe left/right for more options.",
+              buttons: [@buttons[12],@buttons[13],@buttons[14]]
+             },
+             {
+               title: "Swipe left/right for more options.",
+              buttons: [@buttons[15]]
+             },
+           ]
 
 
+        }
+       }
+  )
+end
+if message.text == 'No'
+  message.reply(
+    text: "Ok you can always set them just send 'categories'",
+  )
+
+end
 if message.text.downcase == 'unsubscribe'
     @user = User.where("facebook_id = ? ",message.sender["id"])
   if !@user.empty?

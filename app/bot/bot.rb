@@ -163,7 +163,7 @@ Bot.on :postback do |postback|
                     }, access_token: ENV["ACCESS_TOKEN"])
       end
   end
-
+=begin
   @categories.each { |category|
     if postback.payload == category.uppercase
       message.reply(
@@ -198,6 +198,7 @@ Bot.on :postback do |postback|
       text: 'ok'
 )
     end
+=end
 end
 
 Bot.on :message do |message|
@@ -229,8 +230,22 @@ Bot.on :message do |message|
 end
 
 if message.text == "gibb me categories"
-get_user_categories
-get_buttons
+#  def get_user_categories
+    @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development""Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
+    @users = User.where("facebook_id = ? ",message.sender["id"])
+    unless @users.empty?
+      @users.first.categories.split(',').each { |user_categorie|
+        @categories.delete(user_categorie)
+        }
+  #  end
+  end
+#  def get_buttons
+      @categories.each { |categorie|
+        @buttons.push({type: 'postback',title: categorie, payload: categorie.uppercase})
+       }
+       @buttons.unshift({type: 'postback',title: 'all', payload: 'all'.uppercase })
+
+#  end
   message.reply(
     attachment: {
       type: 'template',

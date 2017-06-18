@@ -375,7 +375,9 @@ get_buttons
  )
 end
 
-puts message.attachments
+puts message.text
+puts message.payload
+
 
 if message.text.downcase == 'unsubscribe'
     @user = User.where("facebook_id = ? ",message.sender["id"])

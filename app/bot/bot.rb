@@ -79,9 +79,9 @@ def get_user_categories
 end
 def get_buttons
     @categories.each { |categorie|
-      @buttons.push({type: 'postback',title: categorie, payload: categorie.uppercase})
+      @buttons.push({type: 'postback',title: categorie, payload: categorie})
      }
-     @buttons.unshift({type: 'postback',title: 'all', payload: 'all'.uppercase })
+     @buttons.unshift({type: 'postback',title: 'all', payload: 'all' })
 
 end
 Facebook::Messenger::Thread.set({
@@ -166,7 +166,7 @@ Bot.on :postback do |postback|
   end
 =begin
   @categories.each { |category|
-    if postback.payload == category.uppercase
+    if postback.payload == category
       message.reply(
         attachment: {
           type: 'template',
@@ -241,20 +241,11 @@ if message.text == "gib me categories"
   #  end
 #  end
 #  def get_buttons
-puts @categories
-puts @categories.class
-puts "----------------------------!"
-    @categories.each do |categorie|
-        @buttons.push({type: 'postback',title: categorie, payload: categorie})
-        puts @buttons
-        puts "----------------------------------------!!"
-      end
-@buttons.unshift({type: 'postback',title: 'all', payload: 'all' })
-
-#  end
-puts "-----------------------------!!!"
+get_buttons
 puts @buttons
-puts @buttons.class
+puts "---"
+puts @categories
+
 =begin
       Bot.deliver({
 

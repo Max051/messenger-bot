@@ -255,7 +255,8 @@ puts "----------------------------!"
 puts "-----------------------------!!!"
 puts @buttons
 puts @buttons.class
-Bot.deliver({
+=begin
+      Bot.deliver({
 
                 recipient: message.sender,
                 message: {
@@ -270,10 +271,17 @@ Bot.deliver({
                        }
                 }
             }, access_token: ENV["ACCESS_TOKEN"])
-
-#  message.reply(
-#
-#  )
+=end
+  message.reply(
+    attachment: {
+         type: 'template',
+         payload: {
+         template_type: 'button',
+         text: 'What category you like?',
+         buttons: {:type=>"postback", :title=>"Test Prep", :payload=>"Test Prep"}
+        }
+       }
+ )
 end
 
 

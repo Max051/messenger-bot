@@ -177,6 +177,7 @@ Bot.on :postback do |postback|
   @categories.each { |category|
     if postback.payload == category
       add_category_to_user(category)
+      puts @user
       message.reply(
         attachment: {
           type: 'template',
@@ -203,28 +204,23 @@ Bot.on :postback do |postback|
                  },
                  {
                    title: "Swipe left/right for more options.",
-                   buttons: [
                 buttons: @buttons[3..5]
-                   ]
                  },
                  {
                    title: "Swipe left/right for more options.",
-                   buttons: [
                     buttons: @buttons[6..8]
-                   ]
                  },
                  {
                    title: "Swipe left/right for more options.",
-                   buttons: @buttons[9..10]
-
+                   buttons: @buttons[9..11]
                  },
                  {
                    title: "Swipe left/right for more options.",
-                   buttons: @buttons[11..13]
+                   buttons: @buttons[12..14]
                  },
                  {
                    title: "Swipe left/right for more options.",
-                   buttons: @buttons[14..16]
+                   buttons: @buttons[15]
                  },
                ]
 
@@ -281,9 +277,6 @@ if message.text == "gib me categories"
 #  end
 #  def get_buttons
 get_buttons
-puts @buttons
-puts "---"
-puts @categories
   message.reply(
     attachment: {
          type: 'template',
@@ -292,29 +285,29 @@ puts @categories
            elements:[
              {
                title: "What category you like?",
-               buttons: [@buttons[0],@buttons[1],@buttons[2]]
+               buttons: @buttons[0..2]
              },
              {
                title: "Swipe left/right for more options.",
-            buttons: [@buttons[0],@buttons[1],@buttons[2]]
-
+            buttons: @buttons[3..5]
              },
              {
                title: "Swipe left/right for more options.",
-              buttons: [@buttons[0],@buttons[1],@buttons[2]]
+                buttons: @buttons[6..8]
              },
              {
                title: "Swipe left/right for more options.",
-               buttons: [@buttons[0],@buttons[1],@buttons[2]]
+               buttons: @buttons[9..11]
              },
              {
                title: "Swipe left/right for more options.",
-              buttons: [@buttons[0],@buttons[1],@buttons[2]]
+               buttons: @buttons[12..14]
              },
              {
                title: "Swipe left/right for more options.",
-              buttons: [@buttons[0],@buttons[1],@buttons[2]]
+               buttons: @buttons[15]
              },
+           ]
            ]
 
 

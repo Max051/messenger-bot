@@ -292,32 +292,32 @@ puts @categories
            elements:[
              {
                title: "What category you like?",
-               buttons: @buttons[0..2]
+               buttons: [@buttons[0],@buttons[1],@buttons[2]]
              },
              {
                title: "Swipe left/right for more options.",
                buttons: [
-            buttons: @buttons[3..5]
+            buttons: [@buttons[0],@buttons[1],@buttons[2]]
                ]
              },
              {
                title: "Swipe left/right for more options.",
                buttons: [
-                buttons: @buttons[6..8]
+              buttons: [@buttons[0],@buttons[1],@buttons[2]]
                ]
              },
              {
                title: "Swipe left/right for more options.",
-               buttons: @buttons[9..10]
+               buttons: [@buttons[0],@buttons[1],@buttons[2]]
 
              },
              {
                title: "Swipe left/right for more options.",
-               buttons: @buttons[11..13]
+              buttons: [@buttons[0],@buttons[1],@buttons[2]]
              },
              {
                title: "Swipe left/right for more options.",
-               buttons: @buttons[14..16]
+              buttons: [@buttons[0],@buttons[1],@buttons[2]]
              },
            ]
 

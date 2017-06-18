@@ -240,12 +240,18 @@ if message.text == "gib me categories"
   #  end
 #  end
 #  def get_buttons
+puts @categories
+puts "----------------------------"
       @categories.each { |categorie|
         @buttons.push({type: 'postback',title: categorie, payload: categorie.uppercase})
+        puts @buttons
+        puts "----------------------------------------"
        }
        @buttons.unshift({type: 'postback',title: 'all', payload: 'all'.uppercase })
 
 #  end
+puts "-----------------------------"
+puts @buttons
   message.reply(
     attachment: {
       type: 'template',

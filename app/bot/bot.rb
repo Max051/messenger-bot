@@ -254,23 +254,25 @@ puts "----------------------------!"
 #  end
 puts "-----------------------------!!!"
 puts @buttons
+puts @buttons.class
 Bot.deliver({
 
                 recipient: message.sender,
                 message: {
                     text: 's'
+                    attachment: {
+                         type: 'template',
+                         payload: {
+                         template_type: 'button',
+                         text: 'What category you like?',
+                         buttons: @buttons
+                        }
+                       }
                 }
             }, access_token: ENV["ACCESS_TOKEN"])
 
 #  message.reply(
-#    attachment: {
-#      type: 'template',
-#      payload: {
-#        template_type: 'button',
-#        text: 'What category you like?',
-#        buttons: @buttons
-#      }
-#    }
+#
 #  )
 end
 

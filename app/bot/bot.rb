@@ -177,7 +177,10 @@ Bot.on :postback do |postback|
   @categories.each { |category|
     if postback.payload == category
       add_category_to_user(category)
-      message.reply(
+      puts @user
+      puts "---------------"
+      puts category
+      postback.reply(
         attachment: {
           type: 'template',
           payload: {
@@ -191,7 +194,7 @@ Bot.on :postback do |postback|
     end
     }
     if postback.payload == 'MORE CATEGORIES'
-      message.reply(
+      postback.reply(
         attachment: {
              type: 'template',
              payload: {
@@ -230,7 +233,7 @@ Bot.on :postback do |postback|
      )
     end
     if postback.payload == 'NO MORE CATEGORIES'
-      message.reply(
+      postback.reply(
       text: 'ok'
 )
     end
@@ -266,20 +269,7 @@ Bot.on :message do |message|
 end
 
 if message.text == "gib me categories"
-#  def get_user_categories
-#    @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development""Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
-#    @users = User.where("facebook_id = ? ",message.sender["id"])
-#    unless @users.empty?
-#      @users.first.categories.split(',').each { |user_categorie|
-#        @categories.delete(user_categorie)
-#        }
-  #  end
-#  end
-#  def get_buttons
 get_buttons
-puts @buttons
-puts "---"
-puts @categories
   message.reply(
     attachment: {
          type: 'template',

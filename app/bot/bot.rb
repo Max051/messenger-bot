@@ -259,7 +259,7 @@ Bot.deliver({
 
                 recipient: message.sender,
                 message: {
-                    text: 's'
+                    text: 's',
                     attachment: {
                          type: 'template',
                          payload: {

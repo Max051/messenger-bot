@@ -229,7 +229,7 @@ Bot.on :message do |message|
     end
 end
 
-if message.text == "gibb me categories"
+if message.text == "gib me categories"
 #  def get_user_categories
 #    @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development""Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
 #    @users = User.where("facebook_id = ? ",message.sender["id"])

@@ -296,20 +296,16 @@ puts @categories
              },
              {
                title: "Swipe left/right for more options.",
-               buttons: [
             buttons: [@buttons[0],@buttons[1],@buttons[2]]
-               ]
+
              },
              {
                title: "Swipe left/right for more options.",
-               buttons: [
               buttons: [@buttons[0],@buttons[1],@buttons[2]]
-               ]
              },
              {
                title: "Swipe left/right for more options.",
                buttons: [@buttons[0],@buttons[1],@buttons[2]]
-
              },
              {
                title: "Swipe left/right for more options.",

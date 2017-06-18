@@ -139,7 +139,7 @@ end
 def send_my
   @messages = []
     get_my_messeges(0)
-    my_categories = User.where("facebook_id = 1243697505746313").first.categories.split(',')
+    my_categories = User.where("facebook_id = ? ",'1243697505746313').first.categories.split(',')
     puts my_categories
 
     @messages.each do |message|

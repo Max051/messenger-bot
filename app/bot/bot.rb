@@ -151,6 +151,7 @@ def send_time
           end
         end
     end
+    begin
     Bot.deliver({
                     recipient:
                         {"id"=>user.facebook_id},
@@ -170,6 +171,9 @@ def send_time
                         ]
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
+              rescue => e
+                puts e.inspect
+              end
   end
 end
 
@@ -194,6 +198,7 @@ def send_my
                   end
       end
     end
+    begin
     Bot.deliver({
                     recipient:
                         {"id"=>'1243697505746313'},
@@ -213,6 +218,9 @@ def send_my
                         ]
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
+              rescue => e
+                puts e
+              end
 end
 
 Bot.on :postback do |postback|

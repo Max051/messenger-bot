@@ -242,7 +242,7 @@ Bot.on :postback do |postback|
       ask_for_more_categories
       puts @user
 end
-
+end
 Bot.on :message do |message|
   if message.text == "Get Started"
 

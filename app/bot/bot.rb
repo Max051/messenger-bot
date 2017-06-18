@@ -278,22 +278,8 @@ puts @categories
          text: 'What category you like?',
          buttons: [
             {:type=>"postback", :title=>"all", :payload=>"all"},
-            {:type=>"postback", :title=>"Development", :payload=>"Development"},
-            {:type=>"postback", :title=>"Business", :payload=>"Business"},
-            {:type=>"postback", :title=>"IT & Software", :payload=>"IT & Software"},
-            {:type=>"postback", :title=>"Office Productivity", :payload=>"Office Productivity"},
-            {:type=>"postback", :title=>"Personal Development", :payload=>"Personal Development"},
-            {:type=>"postback", :title=>"Design", :payload=>"Design"},
-            {:type=>"postback", :title=>"Marketing", :payload=>"Marketing"},
-            {:type=>"postback", :title=>"Lifestyle", :payload=>"Lifestyle"},
-            {:type=>"postback", :title=>"Photography", :payload=>"Photography"},
-            {:type=>"postback", :title=>"Health & Fitness", :payload=>"Health & Fitness"},
-            {:type=>"postback", :title=>"Teacher Training", :payload=>"Teacher Training"},
-            {:type=>"postback", :title=>"Music", :payload=>"Music"},
-            {:type=>"postback", :title=>"Academics", :payload=>"Academics"},
-            {:type=>"postback", :title=>"Language", :payload=>"Language"},
-            {:type=>"postback", :title=>"Test Prep", :payload=>"Test Prep"}
-         ]
+            {:type=>"postback", :title=>"Development", :payload=>"Development"}
+          ]
         }
        }
  )

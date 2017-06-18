@@ -238,7 +238,7 @@ Bot.on :postback do |postback|
                   }
               }, access_token: ENV["ACCESS_TOKEN"])
     when "Development","Business","IT & Software", "Office Productivity","Personal Development","Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"
-      add_category_to_user(postback.payload)
+    #  add_category_to_user(postback.payload)
       ask_for_more_categories
       puts @user
 end

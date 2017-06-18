@@ -173,7 +173,7 @@ Bot.on :postback do |postback|
                     }, access_token: ENV["ACCESS_TOKEN"])
       end
   end
-
+=begin
   @categories.each { |category|
     if postback.payload == category
       add_category_to_user(category)
@@ -197,6 +197,7 @@ Bot.on :postback do |postback|
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
     }
+=end
     if postback.payload == 'Business'
 
             Bot.deliver({

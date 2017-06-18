@@ -375,9 +375,9 @@ get_buttons
  )
 end
 
+puts message.attachments
 
-
-  if message.text.downcase == 'unsubscribe'
+if message.text.downcase == 'unsubscribe'
     @user = User.where("facebook_id = ? ",message.sender["id"])
   if !@user.empty?
     User.destroy(@user.first.id)
@@ -396,7 +396,7 @@ if message.text == 'help'
                     recipient: message.sender,
                     message: {
                         text: "Hi I will send you new courses at 20:30 UTC, If you don't wanna anymore messages just send 'unsubscribe'
-                         If you want to choose categories send 'categories' "
+If you want to choose categories send 'categories' "
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
 

@@ -405,7 +405,7 @@ if message.text == 'Yes'
              },
              {
                title: "Swipe left/right for more options.",
-              buttons: [@buttons[15] @buttons[16]]
+              buttons: [@buttons[15]]
              },
            ]
 

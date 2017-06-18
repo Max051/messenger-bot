@@ -11,6 +11,7 @@ Facebook::Messenger::Subscriptions.subscribe(access_token:  'EAAIUZBpo0lB8BAKxnp
 @messages = []
 @base_url = 'https://www.wykop.pl/tag/kursyudemy/'
 @categories = ["Development","Business","IT & Software", "Office Productivity","Personal Development""Design","Marketing","Lifestyle","Photography","Health & Fitness","Teacher Training","Music","Academics","Language","Test Prep"]
+@buttons = [];
 def get_messeges(page_with_links)
 page = Nokogiri::HTML(open(@base_url))
 page1 =  page.css('li.entry')[page_with_links]
@@ -242,7 +243,7 @@ if message.text == "gib me categories"
 #  def get_buttons
 puts @categories
 puts "----------------------------"
-      @categories.each { |categorie|
+    @categories.each { |categorie|
         @buttons.push({type: 'postback',title: categorie, payload: categorie.uppercase})
         puts @buttons
         puts "----------------------------------------"

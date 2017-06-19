@@ -173,7 +173,7 @@ def send_time
                 }, access_token: ENV["ACCESS_TOKEN"])
               rescue => e
                 puts e.inspect
-              end
+    end
   end
 end
 
@@ -227,20 +227,41 @@ Bot.on :postback do |postback|
   case postback.payload
     when "Get Started"
       @messages = []
-      get_messeges(0)
-      @messages.unshift("Hi")
-      @messages.push("That's all for now I will send you new courses tommorow")
-      @messages.push("If you don't want anymore messages send 'unsubscribe''")
-
+get_my_messeges(0)
+add_welcome_messages
+  @messages.push({ name:"Also I have new feature, now you can choose which course categories are you intrested in", url:'',category:'' })
     @user = User.create(:facebook_id => postback.sender["id"])
        if @user.valid?
-          @messages.each do |text|
+          @messages.each do |message|
           Bot.deliver({
                           recipient: postback.sender,
                           message: {
-                              text: text
+                              text: " #{message[:name]}  #{message[:url]}"
                           }
                       }, access_token: ENV["ACCESS_TOKEN"])
+        end
+        begin
+        Bot.deliver({
+                        recipient:
+                            {"id"=>user.facebook_id},
+                        message: {
+                            text: "Wanna set categories?",
+                            quick_replies: [
+                              {
+                                content_type: 'text',
+                                title: 'Yes',
+                                payload: 'MORE CATEGORIES'
+                              },
+                              {
+                                content_type: 'text',
+                                title: 'No',
+                                payload: 'NO MORE CATEGORIES'
+                              }
+                            ]
+                        }
+                    }, access_token: ENV["ACCESS_TOKEN"])
+                  rescue => e
+                    puts e.inspect
         end
        else
         Bot.deliver({
@@ -312,6 +333,14 @@ Bot.on :postback do |postback|
                                     {type: 'postback',title: 'No thanks', payload: 'NO MORE CATEGORIES'}]
                         }
                       }
+                    }
+                }, access_token: ENV["ACCESS_TOKEN"])
+    when 'All'
+        @users = User.where("facebook_id = ? ",postback.sender["id"])
+        Bot.deliver({
+                    recipient: postback.sender,
+                    message: {
+                        text: 'Oh ok'
                     }
                 }, access_token: ENV["ACCESS_TOKEN"])
 

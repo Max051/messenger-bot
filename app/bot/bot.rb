@@ -348,10 +348,10 @@ end
 Bot.on :message do |message|
   if message.text == "Get Started"
     @messages = []
-get_my_messeges(0)
-add_welcome_messages
-@messages.push({ name:"Also I have new feature, now you can choose which course categories are you intrested in", url:'',category:'' })
-  @user = User.create(:facebook_id => message.sender["id"])
+    get_my_messeges(0)
+    add_welcome_messages
+    @messages.push({ name:"Also I have new feature, now you can choose which course categories are you intrested in", url:'',category:'' })
+    @user = User.create(:facebook_id => message.sender["id"])
      if @user.valid?
         @messages.each do |message|
         Bot.deliver({
@@ -361,7 +361,6 @@ add_welcome_messages
                         }
                     }, access_token: ENV["ACCESS_TOKEN"])
       end
-      begin
       Bot.deliver({
                       recipient: message.sender,
                       message: {
@@ -380,9 +379,6 @@ add_welcome_messages
                           ]
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
-                rescue => e
-                  puts e.inspect
-      end
      else
       Bot.deliver({
                       recipient: message.sender,
@@ -391,7 +387,7 @@ add_welcome_messages
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
-
+end
 if message.text.downcase == "categories"
   get_buttons
   message.reply(

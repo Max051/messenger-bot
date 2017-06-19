@@ -242,8 +242,7 @@ add_welcome_messages
         end
         begin
         Bot.deliver({
-                        recipient:
-                            {"id"=>user.facebook_id},
+                        recipient: postback.sender,
                         message: {
                             text: "Wanna set categories?",
                             quick_replies: [
@@ -348,23 +347,43 @@ end
 end
 Bot.on :message do |message|
   if message.text == "Get Started"
-
-    @user = User.create(:facebook_id => message.sender["id"])
     @messages = []
-    get_messeges(0)
-    if @user.valid?
-      @messages.unshift('Welcome to my Bot here are latest free Udemy Courses')
-      @messages.push("That's all for now I will send you new courses at 20:30 UTC")
-      @messages.push("If you don't want anymore messages send 'unsubscribe''")
-      @messages.each do |text|
+get_my_messeges(0)
+add_welcome_messages
+@messages.push({ name:"Also I have new feature, now you can choose which course categories are you intrested in", url:'',category:'' })
+  @user = User.create(:facebook_id => message.sender["id"])
+     if @user.valid?
+        @messages.each do |message|
         Bot.deliver({
                         recipient: message.sender,
                         message: {
-                            text: text
+                            text: " #{message[:name]}  #{message[:url]}"
                         }
                     }, access_token: ENV["ACCESS_TOKEN"])
       end
-    else
+      begin
+      Bot.deliver({
+                      recipient: message.sender,
+                      message: {
+                          text: "Wanna set categories?",
+                          quick_replies: [
+                            {
+                              content_type: 'text',
+                              title: 'Yes',
+                              payload: 'MORE CATEGORIES'
+                            },
+                            {
+                              content_type: 'text',
+                              title: 'No',
+                              payload: 'NO MORE CATEGORIES'
+                            }
+                          ]
+                      }
+                  }, access_token: ENV["ACCESS_TOKEN"])
+                rescue => e
+                  puts e.inspect
+      end
+     else
       Bot.deliver({
                       recipient: message.sender,
                       message: {
@@ -372,7 +391,6 @@ Bot.on :message do |message|
                       }
                   }, access_token: ENV["ACCESS_TOKEN"])
     end
-end
 
 if message.text.downcase == "categories"
   get_buttons
